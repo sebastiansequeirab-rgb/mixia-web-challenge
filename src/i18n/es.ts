@@ -38,7 +38,7 @@ export const es = {
   },
   products: {
     eyebrow: 'Productos',
-    heading: 'Tres productos en producción.',
+    heading: 'Tres productos que ya están *en producción*.',
     sub: 'No son desarrollos por empezar. Están en la calle y se miden todos los días.',
     visit: 'Visitar',
     ventia: {
@@ -124,7 +124,7 @@ export const es = {
   },
   services: {
     eyebrow: 'Servicios',
-    heading: 'Lo que hacemos por su negocio.',
+    heading: 'Todo lo que hacemos por *su negocio*.',
     sub: 'Fusionamos el conocimiento experto con la capacidad de la inteligencia artificial para resolver retos de negocio reales.',
     tabs: [
       { label: 'Todos', items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
@@ -174,7 +174,7 @@ export const es = {
   },
   clients: {
     eyebrow: 'Clientes',
-    heading: 'Han confiado en Mixia.',
+    heading: 'Marcas que ya *confían* en Mixia.',
     list: [
       'Damasco',
       'Honda Motors',
@@ -183,7 +183,7 @@ export const es = {
       'Google',
       'Scripps Health',
       'Banco R4',
-      'Grupo Higuea',
+      'Grupo Higea',
       'SANUTEM',
     ],
   },
@@ -211,7 +211,7 @@ export const es = {
       direct: 'O escríbanos directo',
     },
     eyebrow: 'Contacto',
-    heading: 'Estamos listos para impulsar su negocio a un nuevo futuro.',
+    heading: 'Impulsemos su negocio a un *nuevo futuro*.',
     sub: 'Cuéntenos su reto. Respondemos el mismo día.',
     email: 'Escribir un correo',
     whatsapp: 'WhatsApp Venezuela',

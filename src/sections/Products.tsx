@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { useT } from '../i18n'
+import { SectionHead } from './SectionHead'
 import { gsap, scrollTo, ScrollTrigger } from '../lib/scroll'
 import { prefersReducedMotion } from '../lib/device'
 import { useReveal } from '../lib/useReveal'
@@ -278,11 +279,7 @@ export function Products() {
   return (
     <section id="productos" ref={root} className={`section products${stacked ? '' : ' is-staged'}`}>
       <div className="wrap">
-        <div className="section-head">
-          <p className="eyebrow reveal">{t.products.eyebrow}</p>
-          <h2 className="h-lg reveal">{t.products.heading}</h2>
-          <p className="lead reveal">{t.products.sub}</p>
-        </div>
+        <SectionHead eyebrow={t.products.eyebrow} heading={t.products.heading} sub={t.products.sub} />
         {stacked && entries.map((entry, i) => <ProductBlock key={entry.kind} entry={entry} flip={i === 1} />)}
       </div>
       {!stacked && <ProductStageSection entries={entries} />}

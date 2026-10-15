@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useT } from '../i18n'
+import { Heading } from './SectionHead'
 import { useReveal } from '../lib/useReveal'
 import { isTouch, prefersReducedMotion } from '../lib/device'
 
@@ -144,7 +145,7 @@ export function Services() {
       <div className="wrap">
         <div className="section-head">
           <p className="eyebrow reveal">{t.services.eyebrow}</p>
-          <h2 className="h-lg reveal">{t.services.heading}</h2>
+          <Heading text={t.services.heading} />
           <p className="lead reveal">{t.services.sub}</p>
           <ul className="services-legend reveal" aria-hidden="true">
             {t.services.tabs.slice(1).map((tb, i) => (

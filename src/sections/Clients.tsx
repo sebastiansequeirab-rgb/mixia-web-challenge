@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useT } from '../i18n'
+import { Heading } from './SectionHead'
 import { useReveal } from '../lib/useReveal'
 
 /* Logos en public/clientes/ (fuentes en FUENTES.md). Los que no tienen archivo van como wordmark. */
@@ -52,10 +53,10 @@ export function Clients() {
   const second = [...list.slice(5), ...list.slice(0, 5)]
 
   return (
-    <section id="clientes" ref={root} className="clients" aria-label={t.clients.heading}>
+    <section id="clientes" ref={root} className="clients" aria-label={t.clients.heading.replace(/\*/g, '')}>
       <div className="wrap">
         <p className="eyebrow reveal">{t.clients.eyebrow}</p>
-        <h2 className="h-md reveal">{t.clients.heading}</h2>
+        <Heading text={t.clients.heading} className="h-md" />
       </div>
       <div className="marquees reveal">
         <Row items={list} />

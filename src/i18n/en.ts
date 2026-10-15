@@ -40,7 +40,7 @@ export const en: Dictionary = {
   },
   products: {
     eyebrow: 'Products',
-    heading: 'Three products in production.',
+    heading: 'Three products already *in production*.',
     sub: 'Not projects waiting to start. They are out in the field and measured every day.',
     visit: 'Visit',
     ventia: {
@@ -126,7 +126,7 @@ export const en: Dictionary = {
   },
   services: {
     eyebrow: 'Services',
-    heading: 'What we do for your business.',
+    heading: 'Everything we do for *your business*.',
     sub: 'We merge expert knowledge with the power of artificial intelligence to solve real business challenges.',
     tabs: [
       { label: 'All', items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
@@ -170,7 +170,7 @@ export const en: Dictionary = {
   },
   clients: {
     eyebrow: 'Clients',
-    heading: 'They trust Mixia.',
+    heading: 'Brands that already *trust* Mixia.',
     list: [
       'Damasco',
       'Honda Motors',
@@ -179,7 +179,7 @@ export const en: Dictionary = {
       'Google',
       'Scripps Health',
       'Banco R4',
-      'Grupo Higuea',
+      'Grupo Higea',
       'SANUTEM',
     ],
   },
@@ -207,7 +207,7 @@ export const en: Dictionary = {
       direct: 'Or write to us directly',
     },
     eyebrow: 'Contact',
-    heading: 'We are ready to drive your business into a new future.',
+    heading: 'Let us drive your business into a *new future*.',
     sub: 'Tell us your challenge. We reply the same day.',
     email: 'Send an email',
     whatsapp: 'WhatsApp Venezuela',

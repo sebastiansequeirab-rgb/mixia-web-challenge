@@ -1,5 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { useT } from '../i18n'
+import { Heading } from './SectionHead'
 import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
 import { isTouch, prefersReducedMotion } from '../lib/device'
@@ -216,7 +217,7 @@ export function Contact() {
       <div className="wrap contact-grid">
         <div className="contact-copy">
           <p className="eyebrow reveal">{t.contact.eyebrow}</p>
-          <h2 className="h-lg reveal">{t.contact.heading}</h2>
+          <Heading text={t.contact.heading} />
           <p className="lead reveal">{t.contact.sub}</p>
         </div>
         <div className="contact-flow reveal">

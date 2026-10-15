@@ -844,7 +844,36 @@ main {
 
 /* ---------- Products ---------- */
 .section-head {
+  position: relative;
   margin-bottom: clamp(56px, 7vw, 110px);
+}
+.section-head::before {
+  content: '';
+  position: absolute;
+  left: -10%;
+  top: -40%;
+  width: 60%;
+  height: 180%;
+  background: radial-gradient(closest-side, rgba(139, 140, 245, 0.1), transparent);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: -1;
+}
+.heading .w-clip {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.heading .w {
+  display: inline-block;
+}
+.heading .w.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 .section-head .lead {
   margin-top: 24px;
