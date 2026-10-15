@@ -1,6 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useT } from '../i18n'
 import { useReveal } from '../lib/useReveal'
+import { isTouch } from '../lib/device'
 
 /* Iconos de línea, uno por servicio, en el mismo orden que el diccionario. */
 const icons = [
@@ -26,16 +27,41 @@ const icons = [
   <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-5h4v5M12 10v4M10 12h4" />,
 ]
 
+function Icon({ i, ...rest }: { i: number } & React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      {...rest}
+    >
+      {icons[i]}
+    </svg>
+  )
+}
+
+/**
+ * Explorador de servicios: la fila activa (hover en escritorio, tap en móvil) se refleja en el
+ * panel pegado de la derecha; en móvil la fila se expande con su descripción.
+ */
 export function Services() {
   const { t, lang } = useT()
   const root = useRef<HTMLElement>(null)
+  const [active, setActive] = useState(0)
+  const [open, setOpen] = useState<number | null>(null)
   useReveal(root, [lang])
 
-  const onMove = (e: React.MouseEvent<HTMLLIElement>) => {
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
     e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
     e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
   }
+
+  const current = t.services.items[active]
 
   return (
     <section id="servicios" ref={root} className="section services">
@@ -45,28 +71,47 @@ export function Services() {
           <h2 className="h-lg reveal">{t.services.heading}</h2>
           <p className="lead reveal">{t.services.sub}</p>
         </div>
-        <ul className="services-grid">
-          {t.services.items.map((s, i) => (
-            <li className="service reveal" key={s.title} onMouseMove={onMove}>
-              <div className="service-icon" aria-hidden="true">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  {icons[i]}
-                </svg>
-              </div>
-              <div>
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div className="services-explorer" onMouseMove={onMove}>
+          <ul className="services-list">
+            {t.services.items.map((s, i) => {
+              const isOpen = open === i
+              return (
+                <li className={`service reveal${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`} key={s.title}>
+                  <button
+                    type="button"
+                    className="service-row"
+                    aria-expanded={isOpen}
+                    aria-controls={`service-desc-${i}`}
+                    onMouseEnter={() => {
+                      if (!isTouch) setActive(i)
+                    }}
+                    onFocus={() => setActive(i)}
+                    onClick={() => {
+                      setActive(i)
+                      setOpen(isOpen ? null : i)
+                    }}
+                  >
+                    <span className="service-icon">
+                      <Icon i={i} />
+                    </span>
+                    <span className="service-title">{s.title}</span>
+                    <span className="service-plus" aria-hidden="true" />
+                  </button>
+                  <div className="service-desc" id={`service-desc-${i}`}>
+                    <p>{s.desc}</p>
+                  </div>
+                </li>
+              )
+            })}
+          </ul>
+          <aside className="services-panel reveal" aria-live="polite">
+            <div className="services-panel-inner" key={active}>
+              <Icon i={active} className="services-panel-icon" />
+              <h3 className="h-md">{current.title}</h3>
+              <p>{current.desc}</p>
+            </div>
+          </aside>
+        </div>
       </div>
     </section>
   )
