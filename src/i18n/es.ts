@@ -1,0 +1,158 @@
+export const es = {
+  lang: 'es',
+  meta: {
+    title: 'Mixia · Soluciones con inteligencia',
+  },
+  nav: {
+    products: 'Productos',
+    services: 'Servicios',
+    clients: 'Clientes',
+    contact: 'Contacto',
+    cta: 'Hablemos',
+    toggle: 'Cambiar idioma a inglés',
+    menu: 'Abrir menú',
+  },
+  loader: {
+    label: 'Cargando experiencia',
+  },
+  hero: {
+    eyebrow: 'Software · Inteligencia artificial · Medios de pago',
+    title: 'Soluciones con inteligencia.',
+    sub: 'Catorce años construyendo el software que mueve el dinero, la salud y los equipos de nuestros clientes. Hoy operamos en seis países con tres productos en producción.',
+    cta1: 'Ver productos',
+    cta2: 'Hablemos',
+    hint: 'Mueva el cursor sobre la red neuronal',
+    hintTouch: 'Toque la red neuronal',
+    scroll: 'Deslice',
+  },
+  stats: {
+    items: [
+      { value: 14, suffix: '+', label: 'años construyendo software' },
+      { value: 6, suffix: '', label: 'países con operación' },
+      { value: 18800, suffix: '', label: 'equipos bajo control de Mixia Lock' },
+      { value: 5000, suffix: '', label: 'conexiones por segundo en producción' },
+    ],
+  },
+  products: {
+    eyebrow: 'Productos',
+    heading: 'Tres productos en producción.',
+    sub: 'No son desarrollos por empezar. Están en la calle y se miden todos los días.',
+    visit: 'Visitar',
+    ventia: {
+      tag: 'Crédito al consumo · BNPL white label',
+      title: 'Ventia',
+      tagline: 'Vende más hoy. Cobra seguro, sin complicarte.',
+      desc: 'Motor de crédito al consumo que permite a sus clientes llevarse el producto con una inicial y pagar el resto en cuotas, con la cobranza automatizada. Cuántas cuotas, qué inicial y con qué reglas: lo decide usted.',
+      features: [
+        'Scoring con IA y aprobación en menos de un minuto',
+        'KYC biométrico con OCR y prevención de fraude',
+        'Reglas 100 % configurables: inicial, cuotas y niveles',
+        'Recordatorios automáticos por WhatsApp, SMS y correo',
+      ],
+      proof: 'En producción para cadenas de retail con 58 tiendas conectadas a la vez.',
+      link: 'https://ventiave.com',
+      linkLabel: 'ventiave.com',
+    },
+    lock: {
+      tag: 'Bloqueo remoto de equipos financiados',
+      title: 'Mixia Lock',
+      tagline: 'El equipo que usted financia responde a su cobranza.',
+      desc: 'Un candado dentro del teléfono, el televisor o la laptop que sale de su tienda a cuotas. Con la cuota al día funciona como cualquier equipo. Si la cuota vence, se bloquea solo y vuelve a la normalidad con un código de seis caracteres.',
+      features: [
+        'Se instala en minutos, por QR o cable, sin técnico',
+        'Se bloquea solo, incluso sin conexión',
+        'Se libera en el acto con un código de un solo uso',
+        'Android, Android TV y Windows. 100 % white label',
+      ],
+      proof: '18.800 equipos y 86 tiendas bajo control hoy.',
+    },
+    smartmed: {
+      tag: 'Gestión clínica integral',
+      title: 'SmartMed',
+      tagline: 'Todo su centro médico, en una sola plataforma.',
+      desc: 'Agenda, historia clínica, pagos e indicadores del centro en un solo sistema que se arma por módulos: cada centro activa lo que necesita y suma más a medida que crece.',
+      features: [
+        'Agenda por profesional y sala de espera en tiempo real',
+        'Historia clínica, recetas, imágenes y laboratorio',
+        'Caja, inventario y reportes para la dirección',
+        'Habla con el paciente por WhatsApp y trabaja con IA',
+      ],
+      proof: 'Operando en Venezuela, México y Estados Unidos.',
+    },
+  },
+  services: {
+    eyebrow: 'Servicios',
+    heading: 'Lo que hacemos por su negocio.',
+    sub: 'Fusionamos el conocimiento experto con la capacidad de la inteligencia artificial para resolver retos de negocio reales.',
+    items: [
+      {
+        title: 'BNPL corporativo',
+        desc: 'Motor de crédito al consumo para retail y banca, con scoring, cobranza y niveles.',
+      },
+      {
+        title: 'Agentes de IA de cobranza',
+        desc: 'Conversan con el cliente por WhatsApp, recuerdan, negocian y registran el pago.',
+      },
+      {
+        title: 'Sistemas financieros y medios de pago',
+        desc: 'Emisión de tarjetas débito y prepago Mastercard, arquitectura emisor y adquirente, clearing y settlement.',
+      },
+      {
+        title: 'Ciberseguridad y PCI-DSS',
+        desc: 'Acompañamiento a la certificación, NOC y SOC con monitoreo de fraude y continuidad.',
+      },
+      {
+        title: 'Inteligencia artificial a la medida',
+        desc: 'Machine learning, analítica predictiva, lenguaje natural, visión y automatización de procesos.',
+      },
+      { title: 'Realidad aumentada', desc: 'Experiencias inmersivas para ventas, capacitación y soporte en campo.' },
+      {
+        title: 'Desarrollo de apps',
+        desc: 'Aplicaciones Android e iOS nativas y multiplataforma, de la idea a la tienda.',
+      },
+      {
+        title: 'Desarrollo web',
+        desc: 'Portales, plataformas y comercio electrónico con rendimiento y diseño de primer nivel.',
+      },
+      {
+        title: 'Nube y virtualización con AWS',
+        desc: 'Arquitectura, migración, almacenamiento y virtualización sobre Amazon Web Services.',
+      },
+      {
+        title: 'Software para salud y legal',
+        desc: 'SmartMed para centros médicos y LegalMind para despachos, listos para integrar.',
+      },
+    ],
+  },
+  clients: {
+    eyebrow: 'Clientes',
+    heading: 'Han confiado en Mixia.',
+    list: [
+      'Damasco',
+      'Honda Motors',
+      'Gerais',
+      'AWS',
+      'Google',
+      'Scripps Health',
+      'Banco R4',
+      'Grupo Higuea',
+      'SANUTEM',
+    ],
+  },
+  contact: {
+    eyebrow: 'Contacto',
+    heading: 'Estamos listos para impulsar su negocio a un nuevo futuro.',
+    sub: 'Cuéntenos su reto. Respondemos el mismo día.',
+    email: 'Escribir un correo',
+    whatsapp: 'WhatsApp Venezuela',
+    mexico: 'WhatsApp México',
+  },
+  footer: {
+    legal: 'Mixia Soluciones Integrales C.A.',
+    tagline: 'Soluciones con inteligencia.',
+    rights: 'Todos los derechos reservados.',
+    built: 'Hecho para el Mixia Web Challenge con Three.js.',
+  },
+}
+
+export type Dictionary = typeof es

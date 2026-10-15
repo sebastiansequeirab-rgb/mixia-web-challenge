@@ -1,0 +1,152 @@
+import type { Dictionary } from './es'
+
+export const en: Dictionary = {
+  lang: 'en',
+  meta: {
+    title: 'Mixia · Intelligent Solutions',
+  },
+  nav: {
+    products: 'Products',
+    services: 'Services',
+    clients: 'Clients',
+    contact: 'Contact',
+    cta: "Let's talk",
+    toggle: 'Cambiar idioma a español',
+    menu: 'Open menu',
+  },
+  loader: {
+    label: 'Loading experience',
+  },
+  hero: {
+    eyebrow: 'Software · Artificial intelligence · Payments',
+    title: 'Intelligent solutions.',
+    sub: 'Fourteen years building the software that moves money, healthcare and devices for our clients. Today we operate in six countries with three products in production.',
+    cta1: 'See products',
+    cta2: "Let's talk",
+    hint: 'Move your cursor over the neural network',
+    hintTouch: 'Touch the neural network',
+    scroll: 'Scroll',
+  },
+  stats: {
+    items: [
+      { value: 14, suffix: '+', label: 'years building software' },
+      { value: 6, suffix: '', label: 'countries with operations' },
+      { value: 18800, suffix: '', label: 'devices under Mixia Lock control' },
+      { value: 5000, suffix: '', label: 'connections per second in production' },
+    ],
+  },
+  products: {
+    eyebrow: 'Products',
+    heading: 'Three products in production.',
+    sub: 'Not projects waiting to start. They are out in the field and measured every day.',
+    visit: 'Visit',
+    ventia: {
+      tag: 'Consumer credit · White-label BNPL',
+      title: 'Ventia',
+      tagline: 'Sell more today. Collect safely, without the hassle.',
+      desc: 'A consumer credit engine that lets your customers take the product home with a down payment and pay the rest in installments, with automated collections. How many installments, which down payment and under which rules: you decide.',
+      features: [
+        'AI scoring with approval in under a minute',
+        'Biometric KYC with OCR and fraud prevention',
+        '100% configurable rules: down payment, installments and tiers',
+        'Automatic reminders via WhatsApp, SMS and email',
+      ],
+      proof: 'In production for retail chains with 58 stores connected at once.',
+      link: 'https://ventiave.com',
+      linkLabel: 'ventiave.com',
+    },
+    lock: {
+      tag: 'Remote locking for financed devices',
+      title: 'Mixia Lock',
+      tagline: 'The device you finance answers to your collections.',
+      desc: 'A lock inside the phone, TV or laptop that leaves your store on installments. With payments up to date it works like any other device. When an installment is overdue it locks itself, and returns to normal with a six-character code.',
+      features: [
+        'Installs in minutes, by QR or cable, no technician needed',
+        'Locks on its own, even offline',
+        'Unlocks instantly with a single-use code',
+        'Android, Android TV and Windows. 100% white label',
+      ],
+      proof: '18,800 devices and 86 stores under control today.',
+    },
+    smartmed: {
+      tag: 'End-to-end clinical management',
+      title: 'SmartMed',
+      tagline: 'Your whole medical center, on a single platform.',
+      desc: 'Scheduling, medical records, payments and center metrics in one modular system: each center activates what it needs and adds more as it grows.',
+      features: [
+        'Scheduling per professional and a real-time waiting room',
+        'Medical records, prescriptions, imaging and lab',
+        'Cash, inventory and reports for management',
+        'Talks to patients on WhatsApp and works with AI',
+      ],
+      proof: 'Operating in Venezuela, Mexico and the United States.',
+    },
+  },
+  services: {
+    eyebrow: 'Services',
+    heading: 'What we do for your business.',
+    sub: 'We merge expert knowledge with the power of artificial intelligence to solve real business challenges.',
+    items: [
+      {
+        title: 'Corporate BNPL',
+        desc: 'Consumer credit engine for retail and banking, with scoring, collections and tiers.',
+      },
+      {
+        title: 'AI collection agents',
+        desc: 'They talk to customers on WhatsApp, remind, negotiate and record the payment.',
+      },
+      {
+        title: 'Financial systems and payments',
+        desc: 'Mastercard debit and prepaid card issuing, issuer and acquirer architecture, clearing and settlement.',
+      },
+      {
+        title: 'Cybersecurity and PCI-DSS',
+        desc: 'Certification support, NOC and SOC with fraud and continuity monitoring.',
+      },
+      {
+        title: 'Custom artificial intelligence',
+        desc: 'Machine learning, predictive analytics, natural language, vision and process automation.',
+      },
+      { title: 'Augmented reality', desc: 'Immersive experiences for sales, training and field support.' },
+      { title: 'App development', desc: 'Native and cross-platform Android and iOS apps, from idea to store.' },
+      { title: 'Web development', desc: 'Portals, platforms and e-commerce with top-tier performance and design.' },
+      {
+        title: 'Cloud and virtualization on AWS',
+        desc: 'Architecture, migration, storage and virtualization on Amazon Web Services.',
+      },
+      {
+        title: 'Healthcare and legal software',
+        desc: 'SmartMed for medical centers and LegalMind for law firms, ready to integrate.',
+      },
+    ],
+  },
+  clients: {
+    eyebrow: 'Clients',
+    heading: 'They trust Mixia.',
+    list: [
+      'Damasco',
+      'Honda Motors',
+      'Gerais',
+      'AWS',
+      'Google',
+      'Scripps Health',
+      'Banco R4',
+      'Grupo Higuea',
+      'SANUTEM',
+    ],
+  },
+  contact: {
+    eyebrow: 'Contact',
+    heading: 'We are ready to drive your business into a new future.',
+    sub: 'Tell us your challenge. We reply the same day.',
+    email: 'Send an email',
+    whatsapp: 'WhatsApp Venezuela',
+    mexico: 'WhatsApp Mexico',
+  },
+  footer: {
+    legal: 'Mixia Soluciones Integrales C.A.',
+    tagline: 'Intelligent solutions.',
+    rights: 'All rights reserved.',
+    built: 'Built for the Mixia Web Challenge with Three.js.',
+  },
+}
