@@ -1,5 +1,19 @@
 # Handoff: Mixia Web Challenge
 
+## Cierre (2026-10-15, noche): verificación final y video
+
+- Laptops 1366×768 y 1536×864 revisadas en producción (`scripts/laptop.mjs`): sin desbordes.
+  Arreglo: en pantallas de menos de 880 px de alto la sección fijada de productos se compacta
+  para caber bajo la nav (media query al final del bloque de productos en `global.css`).
+- iPhone 17 en el simulador de Xcode con Safari: hero, servicios y contacto correctos, 3D carga,
+  flujo de contacto funciona. (`xcrun simctl boot "iPhone 17"`, `xcrun simctl openurl booted <url>`,
+  `xcrun simctl io booted screenshot x.png`.)
+- Entrada del isotipo suavizada: nube cercana y tenue que se condensa en 2,8 s, aristas al final.
+- Video `docs/video/mixia-web-presentacion.mp4` (1920×1080, ~3 min 10 s, sin audio): intro →
+  escritorio (hero con clic, cifras, sección fijada, mosaico con hover, clientes, flujo de contacto
+  completo) → teléfono enmarcado → cierre con la URL. Grabado con `scripts/video.mjs` contra
+  producción y montado con ffmpeg (tarjetas renderizadas con la tipografía del sitio en Chrome).
+
 ## Ronda 5 aplicada (2026-10-15, mismo día; "AI free"; en producción)
 
 Sebastián pidió revisar la página entera y quitar los rastros de diseño hecho por IA. Lista

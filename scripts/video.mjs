@@ -10,7 +10,7 @@ const ctx = await browser.newContext({
   isMobile: mobile,
   hasTouch: mobile,
   locale: 'es-VE',
-  recordVideo: { dir, size: { width: mobile ? 780 : 1440, height: mobile ? 1688 : 900 } },
+  recordVideo: { dir, size: { width: W, height: H } },
 })
 const page = await ctx.newPage()
 await page.goto(url, { waitUntil: 'networkidle' })
@@ -33,11 +33,14 @@ if (!mobile) {
   await page.mouse.move(1100, 300); await wait(600)
 }
 await glide(await top('.stats', -90), 1600); await wait(2600)
-const stageTop = await top('.products-stage')
-await glide(stageTop, 1500); await wait(1200)
-const span = H * 3.2
-for (const f of [0.14, 0.42, 0.6, 0.72, 0.9]) { await glide(stageTop + span * f, 2200); await wait(1500) }
-if (mobile) { for (const sel of ['.product:nth-of-type(2)', '.product:nth-of-type(3)']) { await glide(await top(sel, -80), 1600); await wait(1800) } }
+if (!mobile) {
+  const stageTop = await top('.products-stage')
+  await glide(stageTop, 1500); await wait(1200)
+  const span = H * 3.2
+  for (const f of [0.14, 0.42, 0.6, 0.72, 0.9]) { await glide(stageTop + span * f, 2200); await wait(1500) }
+} else {
+  for (const sel of ['#productos', '.product:nth-of-type(1)', '.product:nth-of-type(2)', '.product:nth-of-type(3)']) { await glide(await top(sel, -80), 1600); await wait(2200) }
+}
 await glide(await top('#servicios', -40), 1600); await wait(800)
 await glide(await top('.mosaic', -90), 1200); await wait(600)
 if (!mobile) {
