@@ -7,6 +7,17 @@ import { prefersReducedMotion } from '../lib/device'
 
 /** Tarjeta de crédito en vidrio naranja: el producto Ventia es crédito al consumo. */
 export function VentiaCard({ progress }: { progress: RefObject<number> }) {
+  return (
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 5.2]} fov={35} />
+      <Studio />
+      <VentiaCardModel progress={progress} />
+    </>
+  )
+}
+
+/** Solo la tarjeta, sin cámara ni luces: así cabe en el escenario compartido de productos. */
+export function VentiaCardModel({ progress, turns = 1.8 }: { progress: RefObject<number>; turns?: number }) {
   const group = useRef<THREE.Group>(null!)
   const logo = useLoader(THREE.TextureLoader, '/brand/ventia-mark.png')
   logo.colorSpace = THREE.SRGBColorSpace
@@ -18,7 +29,7 @@ export function VentiaCard({ progress }: { progress: RefObject<number> }) {
     const py = state.pointer.y
     const inside = Math.abs(px) <= 1 && Math.abs(py) <= 1
     // Gira con el scroll (media vuelta a lo largo de la sección) y sigue al puntero.
-    const ry = -0.9 + p * 1.8 + (inside ? px * 0.4 : 0)
+    const ry = -turns / 2 + p * turns + (inside ? px * 0.4 : 0)
     const rx = -0.15 + (inside ? -py * 0.3 : 0)
     g.rotation.y += (ry - g.rotation.y) * Math.min(1, delta * 3)
     g.rotation.x += (rx - g.rotation.x) * Math.min(1, delta * 3)
@@ -26,8 +37,6 @@ export function VentiaCard({ progress }: { progress: RefObject<number> }) {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 5.2]} fov={35} />
-      <Studio />
       <Float speed={prefersReducedMotion ? 0 : 1.5} rotationIntensity={0.2} floatIntensity={0.5}>
         <group ref={group}>
           <RoundedBox args={[3.4, 2.15, 0.07]} radius={0.14} smoothness={6}>

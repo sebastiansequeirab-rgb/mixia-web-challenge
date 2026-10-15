@@ -18,6 +18,11 @@ Sitio de una página para el Mixia Web Challenge. Lee `README.md` para el qué; 
   `ScrollControls` de drei ni `scroll-behavior: smooth`.
 - Las escenas leen el scroll por `RefObject<number>` (`useSectionProgress`), nunca por estado de React.
 - `src/lib/device.ts` decide `lowPower` y `prefersReducedMotion`; toda escena nueva debe respetarlos.
+- Productos en escritorio es una sección fijada (`ScrollTrigger.pin`) con un solo `View`
+  (`src/three/ProductStage.tsx`); la matemática de tramos vive en `src/lib/stage.ts` sin importar
+  Three, porque el DOM también la usa y meter Three en el chunk principal cuesta 80 kB. Móvil
+  (<860 px) y reduced motion usan los tres bloques apilados. `node scripts/escenario.mjs <url> <prefijo>`
+  captura la sección fijada en 8 puntos del scroll.
 - React queda fijado en 19.3.x: React Three Fiber 9.8 exige `react >=19 <19.4`.
 - Textos: todo pasa por `src/i18n/es.ts` y `en.ts`. Nada de strings sueltos en los componentes.
 - Copy en "usted", beneficio primero. Nunca escribir "anti-robo" para Mixia Lock. Nunca publicar

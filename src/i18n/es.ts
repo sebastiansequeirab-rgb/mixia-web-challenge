@@ -67,6 +67,11 @@ export const es = {
         'Se libera en el acto con un código de un solo uso',
         'Android, Android TV y Windows. 100 % white label',
       ],
+      exploded: [
+        { part: 'Pantalla', text: 'Se bloquea sin conexión' },
+        { part: 'Candado', text: 'Código de un solo uso' },
+        { part: 'Equipo', text: 'Instalación por QR' },
+      ],
       proof: '18.800 equipos y 86 tiendas bajo control hoy.',
       screens: {
         brand: 'Mixia Lock',

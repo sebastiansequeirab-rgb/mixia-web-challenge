@@ -9,13 +9,39 @@ import { buildLockScreens, SCREEN_ORDER, type LockScreens, type ScreenKind } fro
 const SCREEN_MS = 3400
 const AMBER = new THREE.Color('#f2a552')
 const PERI = new THREE.Color('#8b8cf5')
+const ZERO: RefObject<number> = { current: 0 }
 
 /**
  * Teléfono con la app de Mixia Lock dibujada en canvas (tres pantallas que rotan en bucle:
  * registrar, desbloqueado, bloqueado) y un candado que acompaña el estado.
  */
 export function LockPhone({ progress, screens }: { progress: RefObject<number>; screens: LockScreens }) {
+  return (
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={32} />
+      <Studio />
+      <LockPhoneModel progress={progress} screens={screens} />
+    </>
+  )
+}
+
+/**
+ * Solo el teléfono y el candado, sin cámara ni luces. `explode` (0→1) separa las capas:
+ * la pantalla sale hacia la cámara, el candado se aleja y el cuerpo se queda; es la vista
+ * explotada de la sección de productos.
+ */
+export function LockPhoneModel({
+  progress,
+  screens,
+  explode = ZERO,
+}: {
+  progress: RefObject<number>
+  screens: LockScreens
+  explode?: RefObject<number>
+}) {
   const group = useRef<THREE.Group>(null!)
+  const screen = useRef<THREE.Group>(null!)
+  const lock = useRef<THREE.Group>(null!)
   const shackle = useRef<THREE.Group>(null!)
   const ring = useRef<THREE.Mesh>(null!)
   const mats = useRef<THREE.MeshBasicMaterial[]>([])
@@ -26,13 +52,24 @@ export function LockPhone({ progress, screens }: { progress: RefObject<number>; 
   useFrame((st, delta) => {
     const g = group.current
     const p = progress.current ?? 0
+    const e = explode.current ?? 0
     const px = st.pointer.x
     const py = st.pointer.y
     const inside = Math.abs(px) <= 1 && Math.abs(py) <= 1
-    const ry = -0.55 + p * 1.1 + (inside ? px * 0.35 : 0)
-    const rx = inside ? -py * 0.2 : 0
+    // Explotado, el teléfono se abre hacia la cámara en tres cuartos para que se vean las capas.
+    const ry = THREE.MathUtils.lerp(-0.55 + p * 1.1, 0.62, e) + (inside ? px * 0.35 * (1 - e * 0.6) : 0)
+    const rx = THREE.MathUtils.lerp(0, -0.12, e) + (inside ? -py * 0.2 : 0)
     g.rotation.y += (ry - g.rotation.y) * Math.min(1, delta * 3)
     g.rotation.x += (rx - g.rotation.x) * Math.min(1, delta * 3)
+
+    // Capas: la pantalla se despega, el candado se separa, el cuerpo queda en su sitio.
+    const k = Math.min(1, delta * 4)
+    const s = screen.current
+    s.position.z += (0.081 + 0.75 * e - s.position.z) * k
+    const l = lock.current
+    l.position.x += (1.05 + 0.5 * e - l.position.x) * k
+    l.position.y += (-0.45 + 0.95 * e - l.position.y) * k
+    l.position.z += (0.4 + 0.5 * e - l.position.z) * k
 
     // Pantalla activa: rota en bucle; con reduced motion se queda en "desbloqueado".
     const t = st.clock.elapsedTime * 1000
@@ -49,9 +86,9 @@ export function LockPhone({ progress, screens }: { progress: RefObject<number>; 
 
     // Candado: abierto cuando el equipo está desbloqueado, cerrado y ámbar cuando está bloqueado.
     const open = kind === 'unlocked' ? 1 : 0
-    const s = shackle.current
-    s.position.y += (0.22 * open - s.position.y) * Math.min(1, delta * 4)
-    s.rotation.y += (0.9 * open - s.rotation.y) * Math.min(1, delta * 4)
+    const sh = shackle.current
+    sh.position.y += (0.22 * open - sh.position.y) * Math.min(1, delta * 4)
+    sh.rotation.y += (0.9 * open - sh.rotation.y) * Math.min(1, delta * 4)
     const r = ring.current
     const pulse = prefersReducedMotion ? 1 : 1 + Math.sin(st.clock.elapsedTime * 2) * 0.06
     r.scale.setScalar(pulse)
@@ -61,23 +98,26 @@ export function LockPhone({ progress, screens }: { progress: RefObject<number>; 
   })
 
   return (
-    <>
-      <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={32} />
-      <Studio />
-      <Float speed={prefersReducedMotion ? 0 : 1.3} rotationIntensity={0.15} floatIntensity={0.4}>
-        <group ref={group}>
-          <group position={[-0.35, 0, 0]}>
-            <RoundedBox args={[1.56, 3.2, 0.16]} radius={0.16} smoothness={6}>
-              <meshPhysicalMaterial
-                color="#0f1527"
-                metalness={0.6}
-                roughness={0.25}
-                clearcoat={1}
-                clearcoatRoughness={0.15}
-              />
-            </RoundedBox>
+    <Float speed={prefersReducedMotion ? 0 : 1.3} rotationIntensity={0.15} floatIntensity={0.4}>
+      <group ref={group}>
+        <group position={[-0.35, 0, 0]}>
+          <RoundedBox args={[1.56, 3.2, 0.16]} radius={0.16} smoothness={6}>
+            <meshPhysicalMaterial
+              color="#0f1527"
+              metalness={0.6}
+              roughness={0.25}
+              clearcoat={1}
+              clearcoatRoughness={0.15}
+            />
+          </RoundedBox>
+          {/* Capa de pantalla: marco negro + las tres pantallas superpuestas */}
+          <group ref={screen} position={[0, 0, 0.081]}>
+            <mesh position={[0, 0, -0.0005]}>
+              <planeGeometry args={[1.44, 3.08]} />
+              <meshBasicMaterial color="#05070d" />
+            </mesh>
             {SCREEN_ORDER.map((kind, i) => (
-              <mesh key={kind} position={[0, 0, 0.081 + i * 0.0005]}>
+              <mesh key={kind} position={[0, 0, i * 0.0005]}>
                 <planeGeometry args={[1.3, 2.96]} />
                 <meshBasicMaterial
                   ref={(m) => {
@@ -90,54 +130,49 @@ export function LockPhone({ progress, screens }: { progress: RefObject<number>; 
                 />
               </mesh>
             ))}
-            {/* Marco de la pantalla */}
-            <mesh position={[0, 0, 0.0805]}>
-              <planeGeometry args={[1.44, 3.08]} />
-              <meshBasicMaterial color="#05070d" />
-            </mesh>
-            {/* Botones laterales */}
-            <mesh position={[0.79, 0.5, 0]}>
-              <boxGeometry args={[0.03, 0.35, 0.06]} />
-              <meshStandardMaterial color="#1a2238" metalness={0.8} roughness={0.3} />
-            </mesh>
           </group>
+          {/* Botones laterales */}
+          <mesh position={[0.79, 0.5, 0]}>
+            <boxGeometry args={[0.03, 0.35, 0.06]} />
+            <meshStandardMaterial color="#1a2238" metalness={0.8} roughness={0.3} />
+          </mesh>
+        </group>
 
-          {/* Candado */}
-          <group position={[1.05, -0.45, 0.4]} scale={0.55}>
-            <mesh ref={ring} position={[0, 0.2, -0.2]}>
-              <ringGeometry args={[1.25, 1.32, 64]} />
-              <meshBasicMaterial color="#8b8cf5" transparent opacity={0.5} side={THREE.DoubleSide} />
+        {/* Candado */}
+        <group ref={lock} position={[1.05, -0.45, 0.4]} scale={0.55}>
+          <mesh ref={ring} position={[0, 0.2, -0.2]}>
+            <ringGeometry args={[1.25, 1.32, 64]} />
+            <meshBasicMaterial color="#8b8cf5" transparent opacity={0.5} side={THREE.DoubleSide} />
+          </mesh>
+          <RoundedBox args={[1.3, 1.0, 0.5]} radius={0.16} smoothness={6} position={[0, -0.25, 0]}>
+            <meshPhysicalMaterial
+              color="#cfd3ff"
+              metalness={0.5}
+              roughness={0.15}
+              clearcoat={1}
+              envMapIntensity={1.5}
+            />
+          </RoundedBox>
+          <mesh position={[0, -0.25, 0.26]}>
+            <circleGeometry args={[0.12, 24]} />
+            <meshBasicMaterial color="#070b16" />
+          </mesh>
+          <group ref={shackle} position={[0, 0, 0]}>
+            <mesh position={[0, 0.25, 0]}>
+              <torusGeometry args={[0.42, 0.11, 16, 40, Math.PI]} />
+              <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
             </mesh>
-            <RoundedBox args={[1.3, 1.0, 0.5]} radius={0.16} smoothness={6} position={[0, -0.25, 0]}>
-              <meshPhysicalMaterial
-                color="#cfd3ff"
-                metalness={0.5}
-                roughness={0.15}
-                clearcoat={1}
-                envMapIntensity={1.5}
-              />
-            </RoundedBox>
-            <mesh position={[0, -0.25, 0.26]}>
-              <circleGeometry args={[0.12, 24]} />
-              <meshBasicMaterial color="#070b16" />
+            <mesh position={[-0.42, 0.1, 0]}>
+              <cylinderGeometry args={[0.11, 0.11, 0.3, 16]} />
+              <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
             </mesh>
-            <group ref={shackle} position={[0, 0, 0]}>
-              <mesh position={[0, 0.25, 0]}>
-                <torusGeometry args={[0.42, 0.11, 16, 40, Math.PI]} />
-                <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
-              </mesh>
-              <mesh position={[-0.42, 0.1, 0]}>
-                <cylinderGeometry args={[0.11, 0.11, 0.3, 16]} />
-                <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
-              </mesh>
-              <mesh position={[0.42, 0.1, 0]}>
-                <cylinderGeometry args={[0.11, 0.11, 0.3, 16]} />
-                <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
-              </mesh>
-            </group>
+            <mesh position={[0.42, 0.1, 0]}>
+              <cylinderGeometry args={[0.11, 0.11, 0.3, 16]} />
+              <meshPhysicalMaterial color="#e3e6ff" metalness={0.9} roughness={0.2} envMapIntensity={1.6} />
+            </mesh>
           </group>
         </group>
-      </Float>
-    </>
+      </group>
+    </Float>
   )
 }

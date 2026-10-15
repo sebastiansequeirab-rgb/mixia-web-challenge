@@ -1,8 +1,11 @@
 # Spec 0001 · Ronda 3: interacción inmersiva (borrador para aprobar)
 
-Estado: **borrador**, escrito el 2026-10-15 a las 12:25 por Claude tras explorar mercury.com y
-ghost.ai (detalle en `docs/inspiracion/ronda-3.md`). Sebastián lo aprueba o recorta en el chat
-nuevo antes de construir.
+Estado: **aprobado** por Sebastián el 2026-10-15 (tarde) con tres ajustes: la vista explotada de
+Lock va dentro de la sección fijada (no como bloque aparte), no hay capítulos al pie (la nav ya
+marca sección activa y progreso) y la transición 3D es cross-fade con escala, giro y partículas,
+no morfología real. Gerais de gerais.com.ve confirmado como cliente. Falta la cita del bloque 5.
+Escrito el 2026-10-15 a las 12:25 por Claude tras explorar mercury.com y ghost.ai (detalle en
+`docs/inspiracion/ronda-3.md`).
 
 ## Por qué
 
@@ -15,16 +18,16 @@ una empieza de cero.
 
 1. **Productos en una sección fijada** (patrón Mercury). Una pantalla clavada con ScrollTrigger
    `pin`: a la izquierda la lista Ventia · Mixia Lock · SmartMed, a la derecha un solo `View` donde
-   el objeto 3D cambia con transición (la tarjeta Ventia se voltea y se convierte en el
-   teléfono; el teléfono se disuelve en partículas que forman el anillo SmartMed). El texto de
-   cada producto entra y sale con el tramo. Móvil: sin pin, tres bloques como hoy.
-2. **Mixia Lock en vista explotada** (patrón Ghost). Dentro del tramo de Lock, al avanzar el
+   objeto 3D cambia con transición: el saliente se encoge y gira mientras entra el siguiente, con
+   una ráfaga de partículas en el cruce (cross-fade, plan B del borrador, elegido por costo y
+   riesgo). El texto de cada producto entra y sale con el tramo. Móvil y reduced motion: sin pin,
+   tres bloques como hoy.
+2. **Mixia Lock en vista explotada, dentro del tramo de Lock** (patrón Ghost). Al avanzar el
    scroll el teléfono se separa en capas (pantalla, cuerpo, candado) y aparecen tres etiquetas
    con línea: "Se bloquea sin conexión", "Código de un solo uso", "Instalación por QR". Plano
-   técnico tenue de fondo (SVG de líneas, opacidad baja).
-3. **Capítulos pegados al pie**: tres etiquetas fijas (Productos · Servicios · Clientes) que se
-   iluminan según la sección visible, usando el mismo IntersectionObserver del nav. Se ocultan en
-   el hero y en contacto.
+   técnico tenue de fondo. Se construye junto con el bloque 1.
+3. ~~Capítulos pegados al pie~~ Descartado: competiría con el subrayado y la línea de progreso
+   de la nav.
 4. **Hero**: chips técnicos bajo el título (14 años · 6 países · 3 productos en producción) y
    campo de correo inline con botón "Hablemos" que abre `mailto:` con el correo prellenado.
 5. **Cita grande** entre Clientes y Contacto, sección de fondo claro suave (tinta invertida, no

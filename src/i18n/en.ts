@@ -69,6 +69,11 @@ export const en: Dictionary = {
         'Unlocks instantly with a single-use code',
         'Android, Android TV and Windows. 100% white label',
       ],
+      exploded: [
+        { part: 'Screen', text: 'Locks even offline' },
+        { part: 'Lock', text: 'Single-use unlock code' },
+        { part: 'Device', text: 'Installs by QR' },
+      ],
       proof: '18,800 devices and 86 stores under control today.',
       screens: {
         brand: 'Mixia Lock',

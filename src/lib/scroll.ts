@@ -17,8 +17,9 @@ export function initScroll() {
   return lenis
 }
 
-export function scrollTo(target: string) {
-  if (lenis) lenis.scrollTo(target, { offset: -72 })
+export function scrollTo(target: string | number) {
+  if (lenis) lenis.scrollTo(target, { offset: typeof target === 'number' ? 0 : -72 })
+  else if (typeof target === 'number') window.scrollTo({ top: target, behavior: 'smooth' })
   else document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' })
 }
 

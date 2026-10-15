@@ -76,7 +76,10 @@ export function Services() {
             {t.services.items.map((s, i) => {
               const isOpen = open === i
               return (
-                <li className={`service reveal${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`} key={s.title}>
+                <li
+                  className={`service reveal${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`}
+                  key={s.title}
+                >
                   <button
                     type="button"
                     className="service-row"

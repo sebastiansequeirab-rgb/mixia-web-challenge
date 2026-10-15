@@ -27,6 +27,17 @@ function ecgPoints(): THREE.Vector3[] {
 const modules = ['#5ee6f0', '#8b8cf5', '#c084f0', '#6fb4ff', '#5ee6f0']
 
 export function SmartMedPulse({ progress }: { progress: RefObject<number> }) {
+  return (
+    <>
+      <PerspectiveCamera makeDefault position={[0, 0, 5.6]} fov={35} />
+      <Studio />
+      <SmartMedPulseModel progress={progress} />
+    </>
+  )
+}
+
+/** Solo el anillo, sin cámara ni luces. */
+export function SmartMedPulseModel({ progress }: { progress: RefObject<number> }) {
   const group = useRef<THREE.Group>(null!)
   const orbit = useRef<THREE.Group>(null!)
   const line = useRef<Line2>(null!)
@@ -53,8 +64,6 @@ export function SmartMedPulse({ progress }: { progress: RefObject<number> }) {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0, 5.6]} fov={35} />
-      <Studio />
       <Float speed={prefersReducedMotion ? 0 : 1.2} rotationIntensity={0.15} floatIntensity={0.4}>
         <group ref={group}>
           <mesh rotation={[Math.PI / 2, 0, 0]}>
