@@ -9,10 +9,12 @@
   flujo de contacto funciona. (`xcrun simctl boot "iPhone 17"`, `xcrun simctl openurl booted <url>`,
   `xcrun simctl io booted screenshot x.png`.)
 - Entrada del isotipo suavizada: nube cercana y tenue que se condensa en 2,8 s, aristas al final.
-- Video `docs/video/mixia-web-presentacion.mp4` (1920×1080, ~3 min 10 s, sin audio): intro →
-  escritorio (hero con clic, cifras, sección fijada, mosaico con hover, clientes, flujo de contacto
-  completo) → teléfono enmarcado → cierre con la URL. Grabado con `scripts/video.mjs` contra
-  producción y montado con ffmpeg (tarjetas renderizadas con la tipografía del sitio en Chrome).
+- Video `docs/video/mixia-web-presentacion.mp4` (1920×1080, 63 s, con música): intro → escritorio
+  (isotipo armándose, clic, cifras, sección fijada, mosaico, clientes, contacto) → teléfono enmarcado
+  → URL. Grabado **cuadro a cuadro** con `scripts/cuadros.mjs` (Playwright `page.clock`, 30 fps
+  exactos; la grabación en vivo de `video.mjs` daba tirones en el 3D). Música sintetizada propia
+  (`scripts/musica.py`, sin derechos de terceros). Montaje: frames → mp4 con ffmpeg, teléfono sobre
+  fondo desenfocado, tarjetas intro/outro renderizadas en Chrome, pista mezclada con `-shortest`.
 
 ## Ronda 5 aplicada (2026-10-15, mismo día; "AI free"; en producción)
 

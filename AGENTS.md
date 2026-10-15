@@ -6,8 +6,9 @@ Sitio de una página para el Mixia Web Challenge. Lee `README.md` para el qué; 
 
 - `npm run dev` levanta Vite en 5173. `npm run build` corre `tsc -b` y luego Vite; si tsc falla, no hay build.
 - Formato: `npx prettier --write "src/**/*.{ts,tsx,css}" --print-width 120 --no-semi --single-quote`.
-- Video de presentación: `node scripts/video.mjs <url> <carpeta> [mobile]` graba el recorrido (necesita
-  `npx playwright install ffmpeg` una vez); el montaje con tarjetas está descrito en `docs/HANDOFF.md`.
+- Video de presentación: `node scripts/cuadros.mjs <url> <carpeta> [mobile]` graba cuadro a cuadro con
+  reloj controlado (30 fps exactos, el 3D sale fluido; `scripts/video.mjs` graba en vivo y da tirones).
+  Música propia con `python3 scripts/musica.py <wav> <segundos>` (numpy). Montaje en `docs/HANDOFF.md`.
   El mp4 final vive en `docs/video/` y no se versiona (pesa ~28 MB).
 - Deploy: `vercel --prod --yes` desde la raíz. El alias público es https://mixia-web-challenge.vercel.app.
 
