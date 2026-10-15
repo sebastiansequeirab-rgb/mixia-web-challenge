@@ -129,6 +129,12 @@ export const es = {
     eyebrow: 'Servicios',
     heading: 'Lo que hacemos por su negocio.',
     sub: 'Fusionamos el conocimiento experto con la capacidad de la inteligencia artificial para resolver retos de negocio reales.',
+    tabs: [
+      { label: 'Todos', items: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] },
+      { label: 'Finanzas y pagos', items: [0, 2, 3] },
+      { label: 'Inteligencia artificial', items: [1, 4, 5] },
+      { label: 'Plataforma y nube', items: [6, 7, 8, 9] },
+    ],
     items: [
       {
         title: 'BNPL corporativo',

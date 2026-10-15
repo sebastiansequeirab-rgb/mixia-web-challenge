@@ -51,9 +51,17 @@ function Icon({ i, ...rest }: { i: number } & React.SVGProps<SVGSVGElement>) {
 export function Services() {
   const { t, lang } = useT()
   const root = useRef<HTMLElement>(null)
+  const [tab, setTab] = useState(0)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<number | null>(null)
   useReveal(root, [lang])
+
+  const visible = t.services.tabs[tab].items
+  const pick = (i: number) => {
+    setTab(i)
+    setActive(t.services.tabs[i].items[0])
+    setOpen(null)
+  }
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect()
@@ -71,13 +79,30 @@ export function Services() {
           <h2 className="h-lg reveal">{t.services.heading}</h2>
           <p className="lead reveal">{t.services.sub}</p>
         </div>
+        <div className="services-tabs reveal" role="tablist" aria-label={t.services.eyebrow}>
+          {t.services.tabs.map((tb, i) => (
+            <button
+              key={tb.label}
+              type="button"
+              role="tab"
+              aria-selected={tab === i}
+              className={`services-tab${tab === i ? ' is-active' : ''}`}
+              onClick={() => pick(i)}
+            >
+              {tb.label}
+              <small>{tb.items.length}</small>
+            </button>
+          ))}
+        </div>
         <div className="services-explorer" onMouseMove={onMove}>
-          <ul className="services-list">
-            {t.services.items.map((s, i) => {
+          <ul className="services-list" key={tab}>
+            {visible.map((i, n) => {
+              const s = t.services.items[i]
               const isOpen = open === i
               return (
                 <li
-                  className={`service reveal${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`}
+                  className={`service${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`}
+                  style={{ ['--i' as string]: n }}
                   key={s.title}
                 >
                   <button
