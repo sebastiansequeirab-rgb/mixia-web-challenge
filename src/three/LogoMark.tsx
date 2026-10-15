@@ -4,6 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { Brain } from './Brain'
 import { ParticleM } from './ParticleM'
 import { prefersReducedMotion } from '../lib/device'
+import { heroState } from './heroState'
 
 const SWING = (Math.PI * 2) / 16 // un vaivén completo cada 16 s
 
@@ -22,6 +23,16 @@ export function LogoMark({ scroll }: { scroll: RefObject<number> }) {
   useFrame((state, delta) => {
     const g = group.current
     const t = state.clock.elapsedTime
+    // Armado: arranca cuando el loader suelta la página y dura ~2,4 s (inmediato con reduced motion).
+    if (heroState.pulseRequested) {
+      heroState.pulseRequested = false
+      heroState.pulseAt = t
+    }
+    if (prefersReducedMotion) heroState.assemble = 1
+    else if (heroState.ready) {
+      if (!heroState.readyAt) heroState.readyAt = t
+      heroState.assemble = Math.min(1, (t - heroState.readyAt) / 2.4)
+    }
     const inside = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1
     const k = Math.min(1, delta * 3)
     smooth.current.x += ((inside ? pointer.x : 0) - smooth.current.x) * k

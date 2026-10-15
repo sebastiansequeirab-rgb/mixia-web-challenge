@@ -2,29 +2,17 @@ import { lazy, Suspense, useEffect, useRef } from 'react'
 import { useT } from '../i18n'
 import { gsap, scrollTo, ScrollTrigger } from '../lib/scroll'
 import { isTouch, prefersReducedMotion } from '../lib/device'
+import { heroState } from '../three/heroState'
 
 const HeroView = lazy(() => import('../three/HeroView'))
 
-const GRAD = ['#5ee6f0', '#8b8cf5', '#c084f0']
-
-/** Color del degradado de marca en la posición 0→1 (por letra: el clip de fondo no sobrevive a las transformaciones). */
-function gradAt(u: number) {
-  const seg = u < 0.5 ? 0 : 1
-  const k = (u - seg * 0.5) * 2
-  const a = GRAD[seg]
-  const b = GRAD[seg + 1]
-  const ch = (i: number) => Math.round(parseInt(a.slice(i, i + 2), 16) * (1 - k) + parseInt(b.slice(i, i + 2), 16) * k)
-  return `rgb(${ch(1)}, ${ch(3)}, ${ch(5)})`
-}
-
-/** Una línea del título partida en letras (la frase entera queda en el aria-label del h1). */
-function Letters({ text, grad }: { text: string; grad?: boolean }) {
-  const chars = Array.from(text)
+/** Una palabra del título en su propia línea, partida en letras para la entrada. */
+function Word({ text, light }: { text: string; light?: boolean }) {
   return (
-    <span className="line" aria-hidden="true">
-      {chars.map((ch, i) => (
-        <span className="ch" key={i} style={grad ? { color: gradAt(i / Math.max(1, chars.length - 1)) } : undefined}>
-          {ch === ' ' ? ' ' : ch}
+    <span className={`line${light ? ' light' : ''}`} aria-hidden="true">
+      {Array.from(text).map((ch, i) => (
+        <span className="ch" key={i}>
+          {ch}
         </span>
       ))}
     </span>
@@ -36,10 +24,11 @@ export function Hero({ ready }: { ready: boolean }) {
   const root = useRef<HTMLElement>(null)
   const scroll = useRef(0)
 
-  // Entrada: letras del título una a una, luego eyebrow, chips, texto y botones. Antes de "ready"
-  // todo queda oculto (el loader tapa la pantalla).
+  // Entrada: letras del título una a una, luego texto y botones. Antes de "ready" todo queda
+  // oculto (el loader tapa la pantalla). El isotipo se arma a la vez (heroState.ready).
   useEffect(() => {
     if (!root.current) return
+    heroState.ready = ready
     const chars = root.current.querySelectorAll<HTMLElement>('.h-xl .ch')
     const rest = root.current.querySelectorAll<HTMLElement>('.hero-fade')
     if (prefersReducedMotion) {
@@ -55,10 +44,10 @@ export function Hero({ ready }: { ready: boolean }) {
     tl.fromTo(
       chars,
       { yPercent: 120, rotateX: -60, opacity: 0 },
-      { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.1, ease: 'power4.out', stagger: 0.028 },
-      0.1,
+      { yPercent: 0, rotateX: 0, opacity: 1, duration: 1.1, ease: 'power4.out', stagger: 0.03 },
+      0.4,
     )
-    tl.fromTo(rest, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.1 }, 0.55)
+    tl.fromTo(rest, { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out', stagger: 0.12 }, 1.1)
     return () => {
       tl.kill()
     }
@@ -88,32 +77,27 @@ export function Hero({ ready }: { ready: boolean }) {
     el.style.setProperty('--py', y.toFixed(3))
   }
 
-  const [first, ...restWords] = t.hero.title.split(' ')
-  const second = restWords.join(' ')
+  const [first, ...rest] = t.hero.title.split(' ')
 
   return (
     <section id="inicio" ref={root} className="hero" aria-label={t.hero.title} onMouseMove={onMove}>
       <div className="hero-aurora" aria-hidden="true">
         <i />
         <i />
-        <i />
       </div>
       <div className="wrap">
         <div className="hero-copy">
-          <p className="eyebrow hero-fade">{t.hero.eyebrow}</p>
           <h1 className="h-xl" aria-label={t.hero.title}>
-            <Letters text={first} />
-            <Letters text={second} grad />
-          </h1>
-          <ul className="hero-chips hero-fade" aria-label={t.stats.label}>
-            {t.hero.chips.map((c) => (
-              <li key={c}>{c}</li>
+            <Word text={first} />
+            {rest.map((w) => (
+              <Word key={w} text={w} light />
             ))}
-          </ul>
+          </h1>
           <p className="lead hero-fade">{t.hero.sub}</p>
+          <p className="hero-facts hero-fade">{t.hero.chips.join('  ·  ')}</p>
           <div className="hero-actions hero-fade">
             <a
-              className="btn btn-primary"
+              className="btn btn-accent"
               href="#productos"
               onClick={(e) => {
                 e.preventDefault()
@@ -126,7 +110,7 @@ export function Hero({ ready }: { ready: boolean }) {
               </svg>
             </a>
             <a
-              className="btn btn-ghost"
+              className="link-arrow"
               href="#contacto"
               onClick={(e) => {
                 e.preventDefault()
@@ -134,10 +118,18 @@ export function Hero({ ready }: { ready: boolean }) {
               }}
             >
               {t.hero.cta2}
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
             </a>
           </div>
         </div>
-        <div className="hero-visual">
+        <div
+          className="hero-visual"
+          onPointerDown={() => {
+            heroState.pulseRequested = true
+          }}
+        >
           <Suspense fallback={null}>
             <HeroView scroll={scroll} />
           </Suspense>

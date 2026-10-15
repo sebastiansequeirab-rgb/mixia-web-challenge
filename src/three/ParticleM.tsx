@@ -4,6 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js'
 import { pointsFragment, pointsVertex } from './brainShaders'
 import { lowPower, prefersReducedMotion } from '../lib/device'
+import { heroState } from './heroState'
 
 /**
  * Media M, como en el logo: solo la mitad derecha. El borde izquierdo (x = 0) es plano y se pega a
@@ -45,6 +46,8 @@ const local = new THREE.Vector3()
 export function ParticleM() {
   const group = useRef<THREE.Group>(null!)
   const { camera, raycaster, pointer } = useThree()
+  const mat = useRef<THREE.ShaderMaterial>(null)
+  const solidRef = useRef<THREE.MeshBasicMaterial>(null)
 
   const { solid, points } = useMemo(() => {
     const solid = buildM()
@@ -74,6 +77,8 @@ export function ParticleM() {
       uTime: { value: 0 },
       uPointer: { value: new THREE.Vector3(10, 10, 10) },
       uPointerStrength: { value: 0 },
+      uAssemble: { value: 0 },
+      uPulse: { value: -1 },
       uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
       uSize: { value: lowPower ? 12 : 14 },
       uColorShift: { value: 0.35 },
@@ -84,6 +89,8 @@ export function ParticleM() {
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime
     uniforms.uTime.value = prefersReducedMotion ? 0 : t
+    uniforms.uAssemble.value = heroState.assemble
+    uniforms.uPulse.value = heroState.pulseAt < 0 ? -1 : t - heroState.pulseAt
     const g = group.current
     const inside = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1
 
@@ -96,15 +103,21 @@ export function ParticleM() {
       strength = 1
     }
     uniforms.uPointerStrength.value += (strength - uniforms.uPointerStrength.value) * Math.min(1, delta * 4)
+    const m = mat.current
+    if (m) for (const k in uniforms) m.uniforms[k].value = uniforms[k as keyof typeof uniforms].value
+    // El molde sólido aparece con las partículas.
+    const solidMat = solidRef.current
+    if (solidMat) solidMat.opacity = 0.14 * heroState.assemble
   })
 
   return (
     <group ref={group}>
       <mesh geometry={solid}>
-        <meshBasicMaterial color="#6e5fd6" transparent opacity={0.14} depthWrite={false} />
+        <meshBasicMaterial ref={solidRef} color="#6e5fd6" transparent opacity={0} depthWrite={false} />
       </mesh>
       <points geometry={points} frustumCulled={false}>
         <shaderMaterial
+          ref={mat}
           vertexShader={pointsVertex}
           fragmentShader={pointsFragment}
           uniforms={uniforms}

@@ -23,7 +23,7 @@ export const es = {
     sub: 'Catorce años construyendo el software que mueve el dinero, la salud y los equipos de nuestros clientes. Hoy operamos en seis países con tres productos en producción.',
     cta1: 'Ver productos',
     cta2: 'Hablemos',
-    hint: 'Mueva el cursor sobre la red neuronal',
+    hint: 'Mueva el cursor y haga clic sobre la red neuronal',
     hintTouch: 'Toque la red neuronal',
     chips: ['14 años', '6 países', '3 productos en producción'],
   },

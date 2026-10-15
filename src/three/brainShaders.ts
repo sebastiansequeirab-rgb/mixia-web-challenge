@@ -3,14 +3,25 @@ const displace = /* glsl */ `
   uniform float uTime;
   uniform vec3 uPointer;
   uniform float uPointerStrength;
+  uniform float uAssemble;
+  uniform float uPulse;
 
   vec3 displace(vec3 p, float r, out float influence) {
+    // Al cargar, cada partícula llega desde una nube lejana, con su propio retraso (r).
+    float a = smoothstep(r * 0.55, r * 0.55 + 0.45, uAssemble);
+    vec3 far = p + normalize(p + 1e-4) * (0.9 + r * 1.7) + vec3(sin(r * 41.0), cos(r * 29.0), sin(r * 17.0)) * 0.5;
+    p = mix(far, p, a);
     float breath = sin(uTime * 0.7 + r * 6.2831) * 0.014;
     p += normalize(p + 1e-4) * breath;
     vec3 d = p - uPointer;
     float dist = length(d);
     influence = smoothstep(0.62, 0.0, dist) * uPointerStrength;
     p += normalize(d + 1e-4) * influence * 0.22;
+    // Onda del clic: un anillo que sale del puntero y recorre la red, apagándose.
+    float radius = uPulse * 2.4;
+    float ring = smoothstep(0.3, 0.0, abs(dist - radius)) * exp(-uPulse * 1.4) * step(0.0, uPulse);
+    p += normalize(d + 1e-4) * ring * 0.16;
+    influence += ring * 1.4;
     return p;
   }
 
@@ -81,6 +92,7 @@ export const linesVertex = /* glsl */ `
 export const linesFragment = /* glsl */ `
   uniform float uTime;
   uniform float uLineAlpha;
+  uniform float uAssemble;
   varying float vT;
   varying float vPhase;
   varying vec3 vColor;
@@ -91,7 +103,7 @@ export const linesFragment = /* glsl */ `
     float pulse = fract(uTime * 0.22 + vPhase * 3.0);
     float d = abs(vT - pulse);
     float p = smoothstep(0.2, 0.0, d) * step(0.72, fract(vPhase * 7.0 + 0.1) + 0.5);
-    float a = uLineAlpha * (0.22 + p * 1.0 + vInfluence * 0.8);
+    float a = uLineAlpha * uAssemble * (0.22 + p * 1.0 + vInfluence * 0.8);
     gl_FragColor = vec4(vColor * (0.7 + p * 0.8), a);
   }
 `

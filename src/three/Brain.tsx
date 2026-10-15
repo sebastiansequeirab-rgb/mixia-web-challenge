@@ -4,6 +4,7 @@ import { useFrame, useThree } from '@react-three/fiber'
 import { buildBrain } from './brainGeometry'
 import { linesFragment, linesVertex, pointsFragment, pointsVertex } from './brainShaders'
 import { lowPower, prefersReducedMotion } from '../lib/device'
+import { heroState } from './heroState'
 
 const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
 const hit = new THREE.Vector3()
@@ -19,6 +20,8 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
       uTime: { value: 0 },
       uPointer: { value: new THREE.Vector3(10, 10, 10) },
       uPointerStrength: { value: 0 },
+      uAssemble: { value: 0 },
+      uPulse: { value: -1 },
       uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
       uSize: { value: lowPower ? 14 : 16 },
       uLineAlpha: { value: 1 },
@@ -45,10 +48,13 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
   }, [data])
 
   const target = useRef({ strength: 0 })
+  const mats = useRef<THREE.ShaderMaterial[]>([])
 
   useFrame((state, delta) => {
     const t = state.clock.elapsedTime
     uniforms.uTime.value = prefersReducedMotion ? 0 : t
+    uniforms.uAssemble.value = heroState.assemble
+    uniforms.uPulse.value = heroState.pulseAt < 0 ? -1 : t - heroState.pulseAt
     const g = group.current
     const inside = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1
 
@@ -67,12 +73,18 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
 
     // Al hacer scroll las aristas se apagan (el movimiento lo lleva LogoMark).
     uniforms.uLineAlpha.value = 1 - (scroll.current ?? 0) * 0.9
+    // Los materiales guardan su propia copia de los uniforms: se sincronizan desde la nuestra.
+    for (const m of mats.current)
+      for (const k in uniforms) m.uniforms[k].value = uniforms[k as keyof typeof uniforms].value
   })
 
   return (
     <group ref={group}>
       <points geometry={pointsGeo} frustumCulled={false}>
         <shaderMaterial
+          ref={(m) => {
+            if (m) mats.current[0] = m
+          }}
           vertexShader={pointsVertex}
           fragmentShader={pointsFragment}
           uniforms={uniforms}
@@ -83,6 +95,9 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
       </points>
       <lineSegments geometry={linesGeo} frustumCulled={false}>
         <shaderMaterial
+          ref={(m) => {
+            if (m) mats.current[1] = m
+          }}
           vertexShader={linesVertex}
           fragmentShader={linesFragment}
           uniforms={uniforms}

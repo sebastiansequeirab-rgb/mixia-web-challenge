@@ -12,7 +12,7 @@ export function Heading({ text, className = 'h-lg' }: { text: string; className?
       {words.map((w, i) => {
         if (w.startsWith('*')) grad = true
         const clean = w.replace(/\*/g, '')
-        const cls = `w reveal${grad ? ' grad-text' : ''}`
+        const cls = `w reveal${grad ? ' key' : ''}`
         if (w.endsWith('*')) grad = false
         return (
           <span key={i} aria-hidden="true">

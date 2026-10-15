@@ -162,19 +162,16 @@ main {
 
 .eyebrow {
   display: block;
-  font-size: 12px;
-  font-weight: 650;
-  font-stretch: 112%;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--peri);
-  margin-bottom: 24px;
+  margin-bottom: 20px;
 }
 
 .h-xl {
-  font-size: clamp(34px, 5.4vw, 80px);
-  letter-spacing: -0.03em;
-  line-height: 1.02;
+  font-size: clamp(34px, 5vw, 72px);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
 }
 .h-lg {
   font-size: clamp(26px, 3.6vw, 52px);
@@ -523,9 +520,42 @@ main {
 .hero-copy .h-xl .line {
   display: block;
   overflow: hidden;
+  white-space: nowrap;
   padding-bottom: 0.14em;
   margin-bottom: -0.14em;
   perspective: 600px;
+}
+.hero-copy .h-xl .line.light {
+  font-weight: 300;
+  letter-spacing: 0;
+}
+.hero-facts {
+  margin: -14px 0 32px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 6px;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--text);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s;
+}
+.link-arrow:hover {
+  border-color: var(--text);
+}
+.link-arrow svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s var(--ease-out);
+}
+.link-arrow:hover svg {
+  transform: translateX(3px);
 }
 .hero-copy .h-xl .ch {
   display: inline-block;
@@ -541,25 +571,14 @@ main {
   gap: 12px;
   flex-wrap: wrap;
 }
-.hero-chips li {
-  transition:
-    border-color 0.4s,
-    color 0.4s,
-    box-shadow 0.4s;
-}
-.hero-chips li:hover {
-  border-color: var(--peri);
-  color: var(--text);
-  box-shadow: 0 0 24px rgba(139, 140, 245, 0.25);
-}
 .hero-aurora {
   position: absolute;
   inset: -10%;
   z-index: -1;
   overflow: hidden;
   pointer-events: none;
-  filter: blur(70px);
-  opacity: 0.55;
+  filter: blur(80px);
+  opacity: 0.38;
   transform: translate(calc(var(--px, 0) * 24px), calc(var(--py, 0) * 24px));
   transition: transform 1.2s var(--ease-out);
 }
@@ -616,24 +635,6 @@ main {
   clip: rect(0 0 0 0);
   white-space: nowrap;
 }
-.hero-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  list-style: none;
-  margin: 0 0 24px;
-  padding: 0;
-}
-.hero-chips li {
-  padding: 7px 11px;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  font-size: 12px;
-  font-weight: 550;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-2);
-}
 .hero-visual {
   position: relative;
   aspect-ratio: 1 / 1;
@@ -672,9 +673,7 @@ main {
   right: 0;
   bottom: -8px;
   text-align: center;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--muted);
   pointer-events: none;
 }
@@ -742,10 +741,7 @@ main {
   letter-spacing: -0.03em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--text);
 }
 .stat span {
   font-size: 14px;
@@ -870,11 +866,9 @@ main {
 .heading .w {
   display: inline-block;
 }
-.heading .w.grad-text {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+.heading .w.key {
+  font-weight: 300;
+  letter-spacing: 0;
 }
 .section-head .lead {
   margin-top: 24px;
@@ -913,8 +907,6 @@ main {
 .product-copy .tag {
   display: inline-block;
   font-size: 13px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--accent, var(--peri));
   margin-bottom: 18px;
 }
@@ -1060,9 +1052,7 @@ main {
 }
 .stage-name .tag {
   display: block;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--accent);
   max-height: 0;
   opacity: 0;
@@ -1350,9 +1340,7 @@ main {
   list-style: none;
   margin: 28px 0 0;
   padding: 0;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--muted);
 }
 .services-legend li {
@@ -1423,19 +1411,6 @@ main {
   transition: opacity 0.4s;
   pointer-events: none;
 }
-.tile::after {
-  content: '';
-  position: absolute;
-  left: 24px;
-  bottom: 0;
-  width: 42px;
-  height: 2px;
-  background: var(--tone);
-  box-shadow: 0 0 12px var(--tone);
-  transform-origin: left;
-  transform: scaleX(0.3);
-  transition: transform 0.5s var(--ease-out);
-}
 .tile:hover,
 .tile:focus-visible {
   border-color: color-mix(in srgb, var(--tone) 60%, transparent);
@@ -1444,10 +1419,6 @@ main {
 .tile:hover::before,
 .tile:focus-visible::before {
   opacity: 1;
-}
-.tile:hover::after,
-.tile:focus-visible::after {
-  transform: scaleX(1);
 }
 .tile h3 {
   position: relative;
@@ -1907,9 +1878,7 @@ main {
   border-top: 1px solid var(--line);
 }
 .contact-direct-label {
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-size: 14px;
   color: var(--muted);
   margin: 0 0 18px;
 }
@@ -1929,8 +1898,7 @@ main {
   padding: clamp(22px, 2.6vw, 34px);
   border: 1px solid var(--line-strong);
   border-radius: 22px;
-  background: rgba(12, 18, 33, 0.55);
-  backdrop-filter: blur(10px);
+  background: var(--ink-2);
   overflow: hidden;
 }
 .contact-flow::before {
@@ -1953,9 +1921,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--muted);
   transition: color 0.4s;
 }
@@ -2075,9 +2041,7 @@ main {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 13px;
   color: var(--muted);
 }
 .flow-panel input {
@@ -2151,8 +2115,7 @@ main {
   padding: 24px 26px;
   border: 1px solid var(--line-strong);
   border-radius: 18px;
-  background: rgba(12, 18, 33, 0.45);
-  backdrop-filter: blur(6px);
+  background: var(--ink-2);
   overflow: hidden;
   transition:
     border-color 0.3s,

@@ -25,8 +25,8 @@ export const en: Dictionary = {
     sub: 'Fourteen years building the software that moves money, healthcare and devices for our clients. Today we operate in six countries with three products in production.',
     cta1: 'See products',
     cta2: "Let's talk",
-    hint: 'Move your cursor over the neural network',
-    hintTouch: 'Touch the neural network',
+    hint: 'Move your cursor and click on the neural network',
+    hintTouch: 'Tap the neural network',
     chips: ['14 years', '6 countries', '3 products in production'],
   },
   stats: {

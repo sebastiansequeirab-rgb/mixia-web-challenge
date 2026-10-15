@@ -47,7 +47,7 @@ export function Stats() {
 
   useEffect(() => {
     if (!root.current || prefersReducedMotion) return
-    const nums = root.current.querySelectorAll<HTMLElement>('.stat b')
+    const nums = root.current.querySelectorAll<HTMLElement>('.stat > b')
     const tweens = Array.from(nums).map((el, i) => {
       const target = Number(el.dataset.value)
       const suffix = el.dataset.suffix ?? ''
