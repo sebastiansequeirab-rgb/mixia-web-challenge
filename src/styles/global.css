@@ -892,40 +892,55 @@ main {
 .clients .h-md {
   margin-bottom: 48px;
 }
+.marquees {
+  border-block: 1px solid var(--line);
+  padding-block: 8px;
+}
 .marquee {
   display: flex;
   overflow: hidden;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  border-block: 1px solid var(--line);
 }
 .marquee-track {
   display: flex;
   flex: none;
-  gap: 0;
-  animation: marquee 38s linear infinite;
+  align-items: center;
+  animation: marquee 46s linear infinite;
+}
+.marquee.reverse .marquee-track {
+  animation-direction: reverse;
+  animation-duration: 54s;
 }
 .marquee:hover .marquee-track {
   animation-play-state: paused;
 }
-.marquee-track span {
+.client {
   flex: none;
-  padding: 36px 48px;
-  font-family: var(--font-display);
-  font-size: clamp(26px, 3vw, 40px);
-  letter-spacing: -0.02em;
-  color: var(--text-2);
-  white-space: nowrap;
-  display: inline-flex;
-  align-items: center;
-  gap: 48px;
+  margin: 28px clamp(28px, 4vw, 64px);
+  opacity: 0.72;
+  transition: opacity 0.3s;
 }
-.marquee-track span::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--grad);
+.client:hover {
+  opacity: 1;
+}
+.client-logo {
+  display: block;
+  height: 38px;
+  background: var(--text);
+  -webkit-mask: var(--logo) center / contain no-repeat;
+  mask: var(--logo) center / contain no-repeat;
+}
+.client-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-stretch: 118%;
+  font-size: 30px;
+  letter-spacing: -0.03em;
+  line-height: 38px;
+  color: var(--text);
+  white-space: nowrap;
+  text-transform: uppercase;
 }
 @keyframes marquee {
   to {
