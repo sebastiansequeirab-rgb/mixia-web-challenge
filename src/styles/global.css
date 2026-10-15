@@ -501,6 +501,7 @@ main {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
+  overflow: clip;
   min-height: 100svh;
   display: grid;
   align-items: center;
