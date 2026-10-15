@@ -134,37 +134,61 @@ export const en: Dictionary = {
       { label: 'Artificial intelligence', items: [1, 4, 5] },
       { label: 'Platform and cloud', items: [6, 7, 8, 9] },
     ],
+    more: "Let's talk about this",
     items: [
       {
         title: 'Corporate BNPL',
         desc: 'Consumer credit engine for retail and banking, with scoring, collections and tiers.',
+        points: ['AI scoring in seconds', 'Automatic collections on WhatsApp', 'Credit tiers per customer'],
       },
       {
         title: 'AI collection agents',
         desc: 'They talk to customers on WhatsApp, remind, negotiate and record the payment.',
+        points: [
+          'They remind, negotiate and collect',
+          'Log the payment in your system',
+          'Escalate to a human when needed',
+        ],
       },
       {
         title: 'Financial systems and payments',
         desc: 'Mastercard debit and prepaid card issuing, issuer and acquirer architecture, clearing and settlement.',
+        points: ['Mastercard debit and prepaid cards', 'Issuer and acquirer architecture', 'Clearing and settlement'],
       },
       {
         title: 'Cybersecurity and PCI-DSS',
         desc: 'Certification support, NOC and SOC with fraud and continuity monitoring.',
+        points: ['Path to PCI-DSS certification', 'NOC and SOC with 24/7 monitoring', 'Fraud detection and continuity'],
       },
       {
         title: 'Custom artificial intelligence',
         desc: 'Machine learning, predictive analytics, natural language, vision and process automation.',
+        points: ['Predictive models on your data', 'Natural language and vision', 'Process automation'],
       },
-      { title: 'Augmented reality', desc: 'Immersive experiences for sales, training and field support.' },
-      { title: 'App development', desc: 'Native and cross-platform Android and iOS apps, from idea to store.' },
-      { title: 'Web development', desc: 'Portals, platforms and e-commerce with top-tier performance and design.' },
+      {
+        title: 'Augmented reality',
+        desc: 'Immersive experiences for sales, training and field support.',
+        points: ['Sales with live visualization', 'Immersive training', 'Guided field support'],
+      },
+      {
+        title: 'App development',
+        desc: 'Native and cross-platform Android and iOS apps, from idea to store.',
+        points: ['Android and iOS, native or cross-platform', 'From idea to store', 'Maintenance and evolution'],
+      },
+      {
+        title: 'Web development',
+        desc: 'Portals, platforms and e-commerce with top-tier performance and design.',
+        points: ['Custom portals and platforms', 'E-commerce', 'Top-tier performance and SEO'],
+      },
       {
         title: 'Cloud and virtualization on AWS',
         desc: 'Architecture, migration, storage and virtualization on Amazon Web Services.',
+        points: ['AWS architecture and migration', 'Storage and virtualization', 'Costs under control'],
       },
       {
         title: 'Healthcare and legal software',
         desc: 'SmartMed for medical centers and LegalMind for law firms, ready to integrate.',
+        points: ['SmartMed for medical centers', 'LegalMind for law firms', 'Ready to integrate'],
       },
     ],
   },

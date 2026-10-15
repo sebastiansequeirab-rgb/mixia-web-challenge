@@ -3,6 +3,7 @@ import { useT } from '../i18n'
 import { Heading } from './SectionHead'
 import { useReveal } from '../lib/useReveal'
 import { isTouch, prefersReducedMotion } from '../lib/device'
+import { goToContact } from './Products'
 
 type Area = 'fin' | 'ia' | 'plat'
 
@@ -168,8 +169,29 @@ export function Services() {
                 tabIndex={0}
               >
                 <Art i={i} />
-                <h3>{s.title}</h3>
-                <p>{s.desc}</p>
+                <div className="tile-body">
+                  <h3>{s.title}</h3>
+                  <p>{s.desc}</p>
+                  <div className="tile-more">
+                    <ul>
+                      {s.points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
+                    <a
+                      href="#contacto"
+                      onClick={(e) => {
+                        e.preventDefault()
+                        goToContact(tile.area === 'ia' ? 'ia' : 'otro')
+                      }}
+                    >
+                      {t.services.more}
+                      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+                        <path d="M3 8h10M9 4l4 4-4 4" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
               </li>
             )
           })}

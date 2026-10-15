@@ -132,43 +132,61 @@ export const es = {
       { label: 'Inteligencia artificial', items: [1, 4, 5] },
       { label: 'Plataforma y nube', items: [6, 7, 8, 9] },
     ],
+    more: 'Hablemos de esto',
     items: [
       {
         title: 'BNPL corporativo',
         desc: 'Motor de crédito al consumo para retail y banca, con scoring, cobranza y niveles.',
+        points: ['Scoring con IA en segundos', 'Cobranza automática por WhatsApp', 'Niveles de crédito por cliente'],
       },
       {
         title: 'Agentes de IA de cobranza',
         desc: 'Conversan con el cliente por WhatsApp, recuerdan, negocian y registran el pago.',
+        points: ['Recuerdan, negocian y cobran', 'Registran el pago en su sistema', 'Escalan a humano cuando toca'],
       },
       {
         title: 'Sistemas financieros y medios de pago',
         desc: 'Emisión de tarjetas débito y prepago Mastercard, arquitectura emisor y adquirente, clearing y settlement.',
+        points: ['Tarjetas débito y prepago Mastercard', 'Arquitectura emisor y adquirente', 'Clearing y settlement'],
       },
       {
         title: 'Ciberseguridad y PCI-DSS',
         desc: 'Acompañamiento a la certificación, NOC y SOC con monitoreo de fraude y continuidad.',
+        points: [
+          'Camino a la certificación PCI-DSS',
+          'NOC y SOC con monitoreo 24/7',
+          'Detección de fraude y continuidad',
+        ],
       },
       {
         title: 'Inteligencia artificial a la medida',
         desc: 'Machine learning, analítica predictiva, lenguaje natural, visión y automatización de procesos.',
+        points: ['Modelos predictivos sobre sus datos', 'Lenguaje natural y visión', 'Automatización de procesos'],
       },
-      { title: 'Realidad aumentada', desc: 'Experiencias inmersivas para ventas, capacitación y soporte en campo.' },
+      {
+        title: 'Realidad aumentada',
+        desc: 'Experiencias inmersivas para ventas, capacitación y soporte en campo.',
+        points: ['Ventas con visualización en vivo', 'Capacitación inmersiva', 'Soporte guiado en campo'],
+      },
       {
         title: 'Desarrollo de apps',
         desc: 'Aplicaciones Android e iOS nativas y multiplataforma, de la idea a la tienda.',
+        points: ['Android e iOS, nativo o multiplataforma', 'De la idea a la tienda', 'Mantenimiento y evolución'],
       },
       {
         title: 'Desarrollo web',
         desc: 'Portales, plataformas y comercio electrónico con rendimiento y diseño de primer nivel.',
+        points: ['Portales y plataformas a medida', 'Comercio electrónico', 'Rendimiento y SEO de primer nivel'],
       },
       {
         title: 'Nube y virtualización con AWS',
         desc: 'Arquitectura, migración, almacenamiento y virtualización sobre Amazon Web Services.',
+        points: ['Arquitectura y migración a AWS', 'Almacenamiento y virtualización', 'Costos bajo control'],
       },
       {
         title: 'Software para salud y legal',
         desc: 'SmartMed para centros médicos y LegalMind para despachos, listos para integrar.',
+        points: ['SmartMed para centros médicos', 'LegalMind para despachos', 'Listos para integrar'],
       },
     ],
   },

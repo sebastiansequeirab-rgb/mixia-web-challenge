@@ -1003,7 +1003,7 @@ main {
 }
 .stage-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
@@ -1081,26 +1081,32 @@ main {
 }
 .stage-body-inner .tagline {
   font-family: var(--font-display);
-  font-size: clamp(18px, 1.5vw, 22px);
-  letter-spacing: -0.015em;
-  color: var(--text-2);
-  margin-bottom: 14px;
+  font-weight: 300;
+  font-size: clamp(20px, 1.9vw, 28px);
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: var(--text);
+  margin-bottom: 16px;
+  max-width: 22ch;
 }
 .stage-body-inner .desc {
   color: var(--text-2);
-  font-size: 15px;
-  margin-bottom: 18px;
-  max-width: 50ch;
+  font-size: clamp(16px, 1.2vw, 18px);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 52ch;
 }
 .stage-body-inner .features {
-  gap: 8px;
-  margin-bottom: 18px;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 .stage-body-inner .features li {
-  font-size: 15px;
+  font-size: clamp(15px, 1.15vw, 17px);
 }
 .stage-body-inner .proof {
   padding-top: 14px;
+  font-size: 15px;
+  color: var(--text-2);
 }
 .stage-body-inner .product-actions {
   margin-top: 16px;
@@ -1190,7 +1196,7 @@ main {
   position: relative;
   aspect-ratio: 1 / 1;
   width: 100%;
-  max-width: min(640px, 78vh);
+  max-width: min(600px, 72vh);
   margin-inline: auto;
   pointer-events: auto;
 }
@@ -1262,16 +1268,12 @@ main {
   border-radius: 6px;
   background: rgba(7, 11, 22, 0.72);
   backdrop-filter: blur(8px);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
   white-space: nowrap;
 }
 .stage-label small {
-  font-size: 10px;
-  font-weight: 650;
-  letter-spacing: 0.2em;
+  font-size: 12px;
   color: var(--accent);
 }
 .stage-label:nth-child(1) {
@@ -1368,7 +1370,7 @@ main {
 .mosaic {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
-  grid-auto-rows: 150px;
+  grid-auto-rows: 176px;
   grid-auto-flow: dense;
   gap: 12px;
   list-style: none;
@@ -1420,6 +1422,78 @@ main {
 .tile:focus-visible::before {
   opacity: 1;
 }
+.tile-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tile-more {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows 0.55s var(--ease-out),
+    opacity 0.4s;
+}
+.tile-more > * {
+  min-height: 0;
+}
+.tile-more ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tile-more li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--text);
+}
+.tile-more li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--tone);
+  box-shadow: 0 0 8px var(--tone);
+  flex: none;
+}
+.tile-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tone);
+  overflow: hidden;
+}
+.tile-more a svg {
+  width: 13px;
+  height: 13px;
+  transition: transform 0.3s var(--ease-out);
+}
+.tile-more a:hover svg {
+  transform: translateX(3px);
+}
+.tile:hover .tile-more,
+.tile:focus-within .tile-more,
+.tile.big .tile-more {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.tile:hover .art,
+.tile:focus-within .art {
+  transform: scale(1.35) translate(-8%, 10%);
+  filter: drop-shadow(0 0 14px var(--tone));
+}
 .tile h3 {
   position: relative;
   font-size: 15px;
@@ -1442,8 +1516,6 @@ main {
     max-height 0.5s var(--ease-out),
     opacity 0.4s;
 }
-.tile:hover p,
-.tile:focus-visible p,
 .tile.big p {
   max-height: 120px;
   opacity: 1;
@@ -1455,6 +1527,10 @@ main {
   top: 18px;
   color: var(--tone);
   pointer-events: none;
+  transform-origin: top right;
+  transition:
+    transform 0.6s var(--ease-out),
+    filter 0.6s;
 }
 .art svg {
   width: 100%;
@@ -2291,8 +2367,10 @@ main {
     padding: 20px;
     padding-top: 84px;
   }
-  .tile p {
+  .tile p,
+  .tile .tile-more {
     max-height: none;
+    grid-template-rows: 1fr;
     opacity: 1;
   }
   .contact-grid {
