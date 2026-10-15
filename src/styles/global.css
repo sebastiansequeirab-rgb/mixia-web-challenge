@@ -1457,6 +1457,114 @@ main {
   }
 }
 
+/* ---------- Quote: respiro claro entre Clientes y Contacto ---------- */
+.quote {
+  background: var(--text);
+  color: var(--ink);
+  padding-block: clamp(96px, 12vw, 180px);
+}
+.quote blockquote {
+  margin: 0;
+  max-width: 1040px;
+  margin-inline: auto;
+  text-align: center;
+}
+.quote-text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-stretch: 108%;
+  font-size: clamp(28px, 3.6vw, 52px);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+.quote-text::before {
+  content: '\201C';
+}
+.quote-text::after {
+  content: '\201D';
+}
+.quote-by {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 36px;
+  font-size: 15px;
+  color: #3b4660;
+}
+.quote-by strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- Contact: dos puertas de entrada ---------- */
+.contact-segments {
+  margin-bottom: clamp(72px, 9vw, 140px);
+}
+.segments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.segment {
+  --accent: #f2a552;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: clamp(28px, 3vw, 40px);
+  border: 1px solid var(--line-strong);
+  border-radius: 20px;
+  background: rgba(12, 18, 33, 0.55);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.segment.medical {
+  --accent: #5ee6f0;
+}
+.segment::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    520px circle at 100% 0%,
+    color-mix(in srgb, var(--accent) 22%, transparent),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+.segment:hover {
+  border-color: var(--accent);
+}
+.segment > * {
+  position: relative;
+}
+.segment-products {
+  display: flex;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.segment-products li {
+  padding: 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.segment p {
+  color: var(--text-2);
+  max-width: 44ch;
+}
+.segment .btn {
+  margin-top: 8px;
+}
+
 /* ---------- Contact ---------- */
 .contact {
   position: relative;
@@ -1687,5 +1795,11 @@ main {
   }
   .contact-inner {
     grid-template-columns: 1fr;
+  }
+  .segments {
+    grid-template-columns: 1fr;
+  }
+  .hero-form {
+    flex-wrap: wrap;
   }
 }

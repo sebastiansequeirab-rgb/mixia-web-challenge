@@ -186,7 +186,30 @@ export const en: Dictionary = {
       'SANUTEM',
     ],
   },
+  // PENDIENTE: cita real aprobada por Sebastián. Mientras, la sección solo se muestra en desarrollo.
+  quote: {
+    text: 'With Mixia we went from chasing installments to having collections under control. The devices we finance answer on their own.',
+    author: 'Client name',
+    role: 'Role · Company',
+  },
   contact: {
+    segments: {
+      eyebrow: 'Where to start',
+      retail: {
+        title: 'For your retail',
+        text: 'Sell on installments with Ventia and protect every financed device with Mixia Lock. One integration, automatic collections.',
+        products: ['Ventia', 'Mixia Lock'],
+        cta: "Let's talk retail",
+        subject: 'Retail: I want to learn about Ventia and Mixia Lock',
+      },
+      medical: {
+        title: 'For your medical center',
+        text: 'Scheduling, medical records, billing and metrics in SmartMed, modular and with AI. Operating in three countries.',
+        products: ['SmartMed'],
+        cta: "Let's talk health",
+        subject: 'Health: I want to learn about SmartMed',
+      },
+    },
     eyebrow: 'Contact',
     heading: 'We are ready to drive your business into a new future.',
     sub: 'Tell us your challenge. We reply the same day.',

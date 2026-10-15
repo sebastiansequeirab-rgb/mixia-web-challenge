@@ -190,7 +190,30 @@ export const es = {
       'SANUTEM',
     ],
   },
+  // PENDIENTE: cita real aprobada por Sebastián. Mientras, la sección solo se muestra en desarrollo.
+  quote: {
+    text: 'Con Mixia pasamos de perseguir cuotas a tener el cobro bajo control. El equipo que financiamos responde solo.',
+    author: 'Nombre del cliente',
+    role: 'Cargo · Empresa',
+  },
   contact: {
+    segments: {
+      eyebrow: 'Por dónde empezar',
+      retail: {
+        title: 'Para su retail',
+        text: 'Venda a cuotas con Ventia y proteja cada equipo financiado con Mixia Lock. Una sola integración, cobranza automática.',
+        products: ['Ventia', 'Mixia Lock'],
+        cta: 'Hablemos de retail',
+        subject: 'Retail: quiero conocer Ventia y Mixia Lock',
+      },
+      medical: {
+        title: 'Para su centro médico',
+        text: 'Agenda, historia clínica, caja e indicadores en SmartMed, por módulos y con IA. Operando en tres países.',
+        products: ['SmartMed'],
+        cta: 'Hablemos de salud',
+        subject: 'Salud: quiero conocer SmartMed',
+      },
+    },
     eyebrow: 'Contacto',
     heading: 'Estamos listos para impulsar su negocio a un nuevo futuro.',
     sub: 'Cuéntenos su reto. Respondemos el mismo día.',

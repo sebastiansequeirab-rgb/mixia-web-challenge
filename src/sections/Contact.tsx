@@ -73,6 +73,26 @@ export function Contact() {
           <ContactView progress={progress} />
         </Suspense>
       </div>
+      <div className="wrap contact-segments">
+        <p className="eyebrow reveal">{t.contact.segments.eyebrow}</p>
+        <div className="segments">
+          {[t.contact.segments.retail, t.contact.segments.medical].map((seg, i) => (
+            <article className={`segment reveal${i === 0 ? ' retail' : ' medical'}`} key={seg.title}>
+              <ul className="segment-products" aria-hidden="true">
+                {seg.products.map((p) => (
+                  <li key={p}>{p}</li>
+                ))}
+              </ul>
+              <h3 className="h-md">{seg.title}</h3>
+              <p>{seg.text}</p>
+              <a className="btn btn-primary" href={`mailto:${EMAIL}?subject=${encodeURIComponent(seg.subject)}`}>
+                {seg.cta}
+                <Arrow />
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
       <div className="wrap contact-inner">
         <div className="contact-copy">
           <p className="eyebrow reveal">{t.contact.eyebrow}</p>
