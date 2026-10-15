@@ -320,13 +320,49 @@ main {
   letter-spacing: -0.02em;
 }
 .brand img {
-  width: 34px;
+  width: 40px;
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(139, 140, 245, 0.55));
+  transition: filter 0.4s;
+}
+.brand:hover img {
+  filter: none;
+}
+.nav-progress {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--grad);
+  transform: scaleX(var(--p, 0));
+  transform-origin: left;
+  pointer-events: none;
 }
 .nav-links {
+  position: relative;
   display: flex;
   gap: 32px;
   font-size: 15px;
   color: var(--text-2);
+}
+.nav-links::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--x, 0px);
+  width: var(--w, 0px);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad);
+  opacity: var(--o, 0);
+  transition:
+    left 0.5s var(--ease-out),
+    width 0.5s var(--ease-out),
+    opacity 0.3s;
+}
+.nav-links a.active {
+  color: var(--text);
 }
 .nav-links a {
   position: relative;
@@ -411,15 +447,56 @@ main {
   background: rgba(7, 11, 22, 0.96);
   backdrop-filter: blur(20px);
   display: grid;
-  align-content: start;
-  gap: 8px;
-  padding: 24px var(--gutter);
+  align-content: space-between;
+  padding: 32px var(--gutter) 40px;
+  overflow: auto;
 }
-.mobile-menu a {
+.mobile-menu nav {
+  display: grid;
+}
+.mobile-menu nav a {
   font-family: var(--font-display);
-  font-size: 36px;
-  padding: 10px 0;
+  font-weight: 720;
+  font-stretch: 114%;
+  font-size: clamp(36px, 11vw, 52px);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  padding: 14px 0;
   border-bottom: 1px solid var(--line);
+  animation: menu-in 0.6s var(--ease-out) both;
+}
+.mobile-menu nav a:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.mobile-menu nav a:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.mobile-menu nav a:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.mobile-menu nav a.active {
+  color: var(--peri);
+}
+.mobile-menu-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  animation: menu-in 0.6s var(--ease-out) 0.26s both;
+}
+.mobile-menu-foot .btn {
+  height: 48px;
+}
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ---------- Hero ---------- */
@@ -950,46 +1027,107 @@ main {
 
 /* ---------- Contact ---------- */
 .contact {
-  padding-block: clamp(96px, 12vw, 180px);
+  position: relative;
+  padding-block: clamp(120px, 14vw, 220px);
+  overflow: hidden;
+  isolation: isolate;
+}
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.contact-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, var(--ink) 0%, transparent 25%, transparent 75%, var(--ink) 100%);
 }
 .contact-inner {
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 48px;
-  align-items: end;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+.contact-copy .lead {
+  margin-top: 28px;
 }
 .contact-actions {
   display: grid;
-  gap: 12px;
+  gap: 14px;
+  perspective: 900px;
 }
-.contact-actions a {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 22px 24px;
+.contact-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'label arrow'
+    'value arrow'
+    'meta arrow';
+  column-gap: 16px;
+  padding: 24px 26px;
   border: 1px solid var(--line-strong);
-  border-radius: 14px;
+  border-radius: 18px;
+  background: rgba(12, 18, 33, 0.45);
+  backdrop-filter: blur(6px);
+  overflow: hidden;
   transition:
     border-color 0.3s,
-    background 0.3s,
-    transform 0.4s var(--ease-out);
+    transform 0.25s ease-out;
+  will-change: transform;
 }
-.contact-actions a:hover {
+.contact-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(139, 140, 245, 0.22), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.contact-card:hover {
   border-color: var(--text);
-  background: var(--ink-2);
-  transform: translateY(-2px);
 }
-.contact-actions a small {
-  display: block;
+.contact-card:hover::before {
+  opacity: 1;
+}
+.contact-card > * {
+  position: relative;
+}
+.contact-card-label {
+  grid-area: label;
+  font-family: var(--font-display);
+  font-weight: 680;
+  font-stretch: 110%;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+.contact-card-value {
+  grid-area: value;
+  color: var(--text-2);
+  margin-top: 4px;
+}
+.contact-card-meta {
+  grid-area: meta;
   font-size: 13px;
   color: var(--muted);
-  margin-top: 2px;
+  margin-top: 10px;
 }
-.contact-actions a svg {
-  width: 18px;
-  height: 18px;
-  flex: none;
+.contact-card-meta time {
+  color: var(--cyan);
+  font-variant-numeric: tabular-nums;
+}
+.contact-card svg {
+  grid-area: arrow;
+  align-self: center;
+  width: 22px;
+  height: 22px;
+  color: var(--text);
+  transition: transform 0.3s var(--ease-out);
+}
+.contact-card:hover svg {
+  transform: translate(3px, -3px);
 }
 
 /* ---------- Footer ---------- */
@@ -1028,8 +1166,13 @@ main {
   .hero-scroll i,
   .marquee-track,
   .services-panel::before,
-  .services-panel-inner {
+  .services-panel-inner,
+  .mobile-menu nav a,
+  .mobile-menu-foot {
     animation: none;
+  }
+  .nav-links::before {
+    transition: none;
   }
   .service-desc {
     transition: none;

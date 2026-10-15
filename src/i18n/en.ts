@@ -13,6 +13,8 @@ export const en: Dictionary = {
     cta: "Let's talk",
     toggle: 'Cambiar idioma a español',
     menu: 'Open menu',
+    home: 'Mixia, home',
+    sections: 'Sections',
   },
   loader: {
     label: 'Loading experience',
@@ -174,6 +176,10 @@ export const en: Dictionary = {
     email: 'Send an email',
     whatsapp: 'WhatsApp Venezuela',
     mexico: 'WhatsApp Mexico',
+    sameDay: 'Same-day reply',
+    localTime: 'Local time in',
+    caracas: 'Caracas',
+    mexicoCity: 'Mexico City',
   },
   footer: {
     legal: 'Mixia Soluciones Integrales C.A.',

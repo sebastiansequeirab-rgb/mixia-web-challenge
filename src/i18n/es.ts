@@ -11,6 +11,8 @@ export const es = {
     cta: 'Hablemos',
     toggle: 'Cambiar idioma a inglés',
     menu: 'Abrir menú',
+    home: 'Mixia, inicio',
+    sections: 'Secciones',
   },
   loader: {
     label: 'Cargando experiencia',
@@ -178,6 +180,10 @@ export const es = {
     email: 'Escribir un correo',
     whatsapp: 'WhatsApp Venezuela',
     mexico: 'WhatsApp México',
+    sameDay: 'Respuesta el mismo día',
+    localTime: 'Hora local en',
+    caracas: 'Caracas',
+    mexicoCity: 'Ciudad de México',
   },
   footer: {
     legal: 'Mixia Soluciones Integrales C.A.',
