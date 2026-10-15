@@ -6,11 +6,15 @@ const displace = /* glsl */ `
   uniform float uAssemble;
   uniform float uPulse;
 
+  float vAssembleOut;
+
   vec3 displace(vec3 p, float r, out float influence) {
-    // Al cargar, cada partícula llega desde una nube lejana, con su propio retraso (r).
-    float a = smoothstep(r * 0.55, r * 0.55 + 0.45, uAssemble);
-    vec3 far = p + normalize(p + 1e-4) * (0.9 + r * 1.7) + vec3(sin(r * 41.0), cos(r * 29.0), sin(r * 17.0)) * 0.5;
+    // Al cargar, cada partícula llega desde una nube cercana y tenue, con su propio retraso (r).
+    float a = smoothstep(r * 0.5, r * 0.5 + 0.5, uAssemble);
+    a = 1.0 - pow(1.0 - a, 3.0);
+    vec3 far = p * 1.25 + vec3(sin(r * 41.0), cos(r * 29.0), sin(r * 17.0)) * 0.35;
     p = mix(far, p, a);
+    vAssembleOut = a;
     float breath = sin(uTime * 0.7 + r * 6.2831) * 0.014;
     p += normalize(p + 1e-4) * breath;
     vec3 d = p - uPointer;
@@ -51,7 +55,7 @@ export const pointsVertex = /* glsl */ `
     gl_Position = projectionMatrix * mv;
     gl_PointSize = aSize * uSize * uPixelRatio * (1.0 / -mv.z);
     vColor = gradientColor(position.x + uColorShift) + influence * 0.6;
-    vAlpha = 0.35 + 0.4 * aRand + influence * 1.2;
+    vAlpha = (0.35 + 0.4 * aRand + influence * 1.2) * mix(0.08, 1.0, vAssembleOut);
   }
 `
 
@@ -103,7 +107,7 @@ export const linesFragment = /* glsl */ `
     float pulse = fract(uTime * 0.22 + vPhase * 3.0);
     float d = abs(vT - pulse);
     float p = smoothstep(0.2, 0.0, d) * step(0.72, fract(vPhase * 7.0 + 0.1) + 0.5);
-    float a = uLineAlpha * uAssemble * (0.22 + p * 1.0 + vInfluence * 0.8);
+    float a = uLineAlpha * smoothstep(0.82, 1.0, uAssemble) * (0.22 + p * 1.0 + vInfluence * 0.8);
     gl_FragColor = vec4(vColor * (0.7 + p * 0.8), a);
   }
 `

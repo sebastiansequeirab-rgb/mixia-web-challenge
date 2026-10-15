@@ -31,7 +31,7 @@ export function LogoMark({ scroll }: { scroll: RefObject<number> }) {
     if (prefersReducedMotion) heroState.assemble = 1
     else if (heroState.ready) {
       if (!heroState.readyAt) heroState.readyAt = t
-      heroState.assemble = Math.min(1, (t - heroState.readyAt) / 2.4)
+      heroState.assemble = Math.min(1, (t - heroState.readyAt) / 2.8)
     }
     const inside = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1
     const k = Math.min(1, delta * 3)
