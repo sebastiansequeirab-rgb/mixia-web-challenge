@@ -33,9 +33,9 @@ export function Stats() {
   }, [lang])
 
   return (
-    <section ref={root} className="stats" aria-label="Cifras">
+    <section ref={root} className="stats" aria-label={t.stats.label}>
       <div className="wrap">
-        <ul className="stats-grid">
+        <ul className="stats-line">
           {t.stats.items.map((s) => (
             <li className="stat" key={s.label}>
               <b data-value={s.value} data-suffix={s.suffix}>

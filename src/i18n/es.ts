@@ -26,6 +26,7 @@ export const es = {
     scroll: 'Deslice',
   },
   stats: {
+    label: 'Cifras',
     items: [
       { value: 14, suffix: '+', label: 'años construyendo software' },
       { value: 6, suffix: '', label: 'países con operación' },

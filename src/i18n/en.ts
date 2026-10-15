@@ -28,6 +28,7 @@ export const en: Dictionary = {
     scroll: 'Scroll',
   },
   stats: {
+    label: 'Figures',
     items: [
       { value: 14, suffix: '+', label: 'years building software' },
       { value: 6, suffix: '', label: 'countries with operations' },
