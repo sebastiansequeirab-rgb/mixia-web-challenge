@@ -8,7 +8,6 @@ import { Stats } from './sections/Stats'
 import { Products } from './sections/Products'
 import { Services } from './sections/Services'
 import { Clients } from './sections/Clients'
-import { Quote } from './sections/Quote'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 
@@ -36,7 +35,6 @@ export default function App() {
           <Products />
           <Services />
           <Clients />
-          <Quote />
           <Contact />
         </main>
         <Footer />

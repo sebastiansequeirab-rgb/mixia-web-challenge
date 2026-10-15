@@ -1846,114 +1846,6 @@ main {
   }
 }
 
-/* ---------- Quote: respiro claro entre Clientes y Contacto ---------- */
-.quote {
-  background: var(--text);
-  color: var(--ink);
-  padding-block: clamp(96px, 12vw, 180px);
-}
-.quote blockquote {
-  margin: 0;
-  max-width: 1040px;
-  margin-inline: auto;
-  text-align: center;
-}
-.quote-text {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-stretch: 108%;
-  font-size: clamp(28px, 3.6vw, 52px);
-  line-height: 1.12;
-  letter-spacing: -0.03em;
-}
-.quote-text::before {
-  content: '\201C';
-}
-.quote-text::after {
-  content: '\201D';
-}
-.quote-by {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-top: 36px;
-  font-size: 15px;
-  color: #3b4660;
-}
-.quote-by strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-/* ---------- Contact: dos puertas de entrada ---------- */
-.contact-segments {
-  margin-bottom: clamp(72px, 9vw, 140px);
-}
-.segments {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-.segment {
-  --accent: #f2a552;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 16px;
-  padding: clamp(28px, 3vw, 40px);
-  border: 1px solid var(--line-strong);
-  border-radius: 20px;
-  background: rgba(12, 18, 33, 0.55);
-  backdrop-filter: blur(6px);
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-.segment.medical {
-  --accent: #5ee6f0;
-}
-.segment::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    520px circle at 100% 0%,
-    color-mix(in srgb, var(--accent) 22%, transparent),
-    transparent 60%
-  );
-  pointer-events: none;
-}
-.segment:hover {
-  border-color: var(--accent);
-}
-.segment > * {
-  position: relative;
-}
-.segment-products {
-  display: flex;
-  gap: 8px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.segment-products li {
-  padding: 6px 10px;
-  border: 1px solid var(--line-strong);
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-.segment p {
-  color: var(--text-2);
-  max-width: 44ch;
-}
-.segment .btn {
-  margin-top: 8px;
-}
-
 /* ---------- Contact ---------- */
 .contact {
   position: relative;
@@ -1973,11 +1865,241 @@ main {
   inset: 0;
   background: linear-gradient(to bottom, var(--ink) 0%, transparent 25%, transparent 75%, var(--ink) 100%);
 }
-.contact-inner {
+.contact-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
-  gap: clamp(40px, 6vw, 96px);
-  align-items: center;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: clamp(32px, 5vw, 72px) clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.contact-direct {
+  grid-column: 1 / -1;
+  padding-top: clamp(32px, 4vw, 56px);
+  border-top: 1px solid var(--line);
+}
+.contact-direct-label {
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 18px;
+}
+.contact-actions {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  perspective: 900px;
+}
+.contact-actions > div {
+  display: grid;
+}
+
+/* Flujo de tres pasos */
+.contact-flow {
+  position: relative;
+  padding: clamp(22px, 2.6vw, 34px);
+  border: 1px solid var(--line-strong);
+  border-radius: 22px;
+  background: rgba(12, 18, 33, 0.55);
+  backdrop-filter: blur(10px);
+  overflow: hidden;
+}
+.contact-flow::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: var(--grad);
+  opacity: 0.8;
+}
+.flow-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  list-style: none;
+  margin: 0 0 26px;
+  padding: 0;
+}
+.flow-steps li {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.4s;
+}
+.flow-steps li i {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--line-strong);
+  overflow: hidden;
+  position: relative;
+}
+.flow-steps li i::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+.flow-steps li.is-done i::after,
+.flow-steps li.is-current i::after {
+  transform: scaleX(1);
+}
+.flow-steps li.is-current {
+  color: var(--text);
+}
+.flow-track {
+  display: grid;
+  grid-template-columns: 100% 100% 100%;
+  transform: translateX(calc(var(--s, 0) * -100%));
+  transition: transform 0.7s var(--ease-out);
+}
+.flow[data-step='1'] .flow-track {
+  --s: 1;
+}
+.flow[data-step='2'] .flow-track {
+  --s: 2;
+}
+.flow-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.5s,
+    visibility 0s 0.7s;
+}
+.flow-panel:not([aria-hidden='true']) {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0.15s, 0s;
+}
+.flow-ask {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(17px, 1.5vw, 21px);
+  margin: 0;
+}
+.flow-interests {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+.flow-interest {
+  --tone: var(--peri);
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  transition:
+    border-color 0.3s,
+    background 0.3s,
+    transform 0.4s var(--ease-out);
+}
+.flow-interest.ventia {
+  --tone: #f2a552;
+}
+.flow-interest.lock {
+  --tone: #8b8cf5;
+}
+.flow-interest.smartmed {
+  --tone: #5ee6f0;
+}
+.flow-interest.ia {
+  --tone: #c084f0;
+}
+.flow-interest strong {
+  font-weight: 600;
+  font-size: 15px;
+}
+.flow-interest small {
+  font-size: 12px;
+  color: var(--muted);
+}
+.flow-interest:hover,
+.flow-interest:focus-visible {
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 10%, transparent);
+  transform: translateY(-2px);
+}
+.flow-interest.is-on {
+  border-color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 16%, transparent);
+}
+.flow-interest.is-on small {
+  color: var(--tone);
+}
+.flow-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.flow-panel input {
+  height: 50px;
+  padding: 0 16px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.flow-panel input::placeholder {
+  color: var(--muted);
+}
+.flow-panel input:focus {
+  outline: none;
+  border-color: var(--peri);
+  background: rgba(255, 255, 255, 0.06);
+}
+.flow-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+.flow-nav .btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+.flow-message {
+  margin: 0;
+  padding: 18px 20px;
+  border-left: 2px solid var(--peri);
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0 12px 12px 0;
+  color: var(--text-2);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.btn-wa {
+  background: #25d366;
+  color: #06271a;
+}
+.btn-wa:hover {
+  filter: brightness(1.08);
 }
 .contact-copy .lead {
   margin-top: 28px;
@@ -2180,10 +2302,13 @@ main {
     max-height: none;
     opacity: 1;
   }
-  .contact-inner {
+  .contact-grid {
     grid-template-columns: 1fr;
   }
-  .segments {
+  .contact-actions {
+    grid-template-columns: 1fr;
+  }
+  .flow-interests {
     grid-template-columns: 1fr;
   }
 }
