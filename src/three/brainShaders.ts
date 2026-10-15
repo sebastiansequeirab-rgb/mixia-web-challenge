@@ -27,6 +27,7 @@ export const pointsVertex = /* glsl */ `
   ${displace}
   uniform float uPixelRatio;
   uniform float uSize;
+  uniform float uColorShift;
   attribute float aRand;
   attribute float aSize;
   varying vec3 vColor;
@@ -38,7 +39,7 @@ export const pointsVertex = /* glsl */ `
     vec4 mv = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
     gl_PointSize = aSize * uSize * uPixelRatio * (1.0 / -mv.z);
-    vColor = gradientColor(position.x) + influence * 0.6;
+    vColor = gradientColor(position.x + uColorShift) + influence * 0.6;
     vAlpha = 0.35 + 0.4 * aRand + influence * 1.2;
   }
 `

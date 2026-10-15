@@ -22,6 +22,7 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
       uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
       uSize: { value: lowPower ? 14 : 16 },
       uLineAlpha: { value: 1 },
+      uColorShift: { value: 0 },
     }),
     [],
   )
@@ -86,7 +87,7 @@ export function Brain({ scroll }: { scroll: RefObject<number> }) {
 
   return (
     <group ref={group} scale={fit}>
-      <group position={[0.32, 0, 0]}>
+      <group position={[-0.4, 0, 0]}>
         <points geometry={pointsGeo} frustumCulled={false}>
           <shaderMaterial
             vertexShader={pointsVertex}

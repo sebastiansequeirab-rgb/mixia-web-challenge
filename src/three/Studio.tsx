@@ -40,14 +40,20 @@ export function Glass({
   color = '#c9d2ff',
   tint = '#8b8cf5',
   transmission = 1,
+  emissive = '#000000',
+  emissiveIntensity = 0,
 }: {
   color?: string
   tint?: string
   transmission?: number
+  emissive?: string
+  emissiveIntensity?: number
 }) {
   return (
     <meshPhysicalMaterial
       color={color}
+      emissive={emissive}
+      emissiveIntensity={emissiveIntensity}
       transmission={lowPower ? 0 : transmission}
       thickness={1.2}
       ior={1.45}

@@ -923,10 +923,9 @@ main {
   .product.flip {
     grid-template-columns: 1fr;
   }
+  .product-visual,
   .product.flip .product-visual {
-    order: 0;
-  }
-  .product-visual {
+    order: -1;
     max-width: 420px;
     aspect-ratio: 1 / 0.85;
   }
