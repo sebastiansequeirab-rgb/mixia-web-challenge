@@ -1111,8 +1111,59 @@ main {
   grid-template-rows: 1fr;
 }
 .stage-item .stage-body-inner {
+  opacity: 1;
+  transform: none;
+}
+/* Cada pieza del texto entra una tras otra (--k) cuando el tramo se activa. */
+.stage-body-inner > *,
+.stage-body-inner .features li {
   opacity: var(--on);
-  transform: translateY(calc((1 - var(--on)) * 14px));
+  transform: translateY(calc((1 - var(--on)) * 18px));
+  transition:
+    opacity 0.55s,
+    transform 0.8s var(--ease-out);
+  transition-delay: calc(var(--on) * var(--k, 0) * 70ms);
+}
+.stage-body-inner .features {
+  opacity: 1;
+  transform: none;
+}
+/* Los beneficios se iluminan uno a uno a medida que se avanza en el tramo (--local). */
+.stage-body-inner .features li {
+  --lit: clamp(0, calc((var(--local, 0) - 0.08 - var(--f) * 0.11) * 9), 1);
+  position: relative;
+  padding-left: 0;
+}
+.stage-body-inner .features li::before {
+  opacity: calc(0.25 + 0.75 * var(--lit));
+  transform: scale(calc(0.7 + 0.5 * var(--lit)));
+  box-shadow: 0 0 calc(14px * var(--lit)) var(--accent);
+}
+.stage-body-inner .features li span {
+  color: color-mix(in srgb, var(--text) calc(45% + 55% * var(--lit)), var(--muted));
+  transition: color 0.3s;
+}
+.btn-accent {
+  background: var(--accent, var(--peri));
+  color: var(--ink);
+  box-shadow: 0 0 0 0 var(--accent, var(--peri));
+  transition:
+    transform 0.4s var(--ease-out),
+    box-shadow 0.5s,
+    filter 0.3s;
+}
+.btn-accent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 34px -8px var(--accent, var(--peri));
+  filter: brightness(1.08);
+}
+.btn-accent svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s var(--ease-out);
+}
+.btn-accent:hover svg {
+  transform: translateX(3px);
 }
 
 .stage-visual {

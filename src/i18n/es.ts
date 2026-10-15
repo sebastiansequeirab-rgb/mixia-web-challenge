@@ -44,8 +44,9 @@ export const es = {
     ventia: {
       tag: 'Crédito al consumo · BNPL white label',
       title: 'Ventia',
-      tagline: 'Vende más hoy. Cobra seguro, sin complicarte.',
-      desc: 'Motor de crédito al consumo que permite a sus clientes llevarse el producto con una inicial y pagar el resto en cuotas, con la cobranza automatizada. Cuántas cuotas, qué inicial y con qué reglas: lo decide usted.',
+      tagline: 'Venda hoy. Cobre sin perseguir a nadie.',
+      desc: 'Su cliente se lleva el producto con una inicial y paga el resto en cuotas. Ventia aprueba en menos de un minuto, recuerda cada pago y le cobra por usted. Las reglas, las cuotas y la inicial las pone su negocio.',
+      cta: 'Quiero vender a cuotas',
       features: [
         'Scoring con IA y aprobación en menos de un minuto',
         'KYC biométrico con OCR y prevención de fraude',
@@ -59,8 +60,9 @@ export const es = {
     lock: {
       tag: 'Bloqueo remoto de equipos financiados',
       title: 'Mixia Lock',
-      tagline: 'El equipo que usted financia responde a su cobranza.',
-      desc: 'Un candado dentro del teléfono, el televisor o la laptop que sale de su tienda a cuotas. Con la cuota al día funciona como cualquier equipo. Si la cuota vence, se bloquea solo y vuelve a la normalidad con un código de seis caracteres.',
+      tagline: 'El equipo que usted financia trabaja para su cobranza.',
+      desc: 'Un candado invisible dentro del teléfono, el televisor o la laptop que sale de su tienda a cuotas. Con la cuota al día, el equipo funciona como siempre. Si la cuota vence, se bloquea solo y vuelve a la vida con un código de seis caracteres.',
+      cta: 'Proteja sus equipos financiados',
       features: [
         'Se instala en minutos, por QR o cable, sin técnico',
         'Se bloquea solo, incluso sin conexión',
@@ -108,8 +110,9 @@ export const es = {
     smartmed: {
       tag: 'Gestión clínica integral',
       title: 'SmartMed',
-      tagline: 'Todo su centro médico, en una sola plataforma.',
-      desc: 'Agenda, historia clínica, pagos e indicadores del centro en un solo sistema que se arma por módulos: cada centro activa lo que necesita y suma más a medida que crece.',
+      tagline: 'Su centro médico entero, en una sola pantalla.',
+      desc: 'Agenda, historia clínica, caja e indicadores en un sistema que se arma por módulos: cada centro activa lo que necesita hoy y suma más cuando crece. Con IA que escribe, resume y responde por WhatsApp.',
+      cta: 'Modernice su centro médico',
       features: [
         'Agenda por profesional y sala de espera en tiempo real',
         'Historia clínica, recetas, imágenes y laboratorio',

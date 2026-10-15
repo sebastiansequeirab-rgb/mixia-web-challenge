@@ -6,7 +6,7 @@ import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
 import type { ProductKind } from '../three/ProductView'
 import type { LockScreens } from '../three/lockScreens'
-import { STAGE_COUNT, stageExplode } from '../lib/stage'
+import { STAGE_COUNT, stageExplode, stageLocal } from '../lib/stage'
 
 const ProductView = lazy(() => import('../three/ProductView'))
 const ProductStage = lazy(() => import('../three/ProductStage'))
@@ -16,6 +16,7 @@ type Product = {
   title: string
   tagline: string
   desc: string
+  cta: string
   features: string[]
   proof: string
   link?: string
@@ -58,22 +59,49 @@ function Name({ data, logo }: { data: Product; logo?: Logo }) {
   )
 }
 
-function Copy({ data, reveal }: { data: Product; reveal?: boolean }) {
+/** Lleva al visitante a contacto con el interés ya marcado (lo escucha el formulario). */
+export function goToContact(interest: string) {
+  window.dispatchEvent(new CustomEvent('mixia:interest', { detail: interest }))
+  scrollTo('#contacto')
+}
+
+function Copy({ data, kind, reveal }: { data: Product; kind: ProductKind; reveal?: boolean }) {
   const { t } = useT()
   const r = reveal ? 'reveal' : undefined
+  let k = 0
+  const step = () => ({ ['--k' as string]: k++ })
   return (
     <>
-      <p className={`tagline ${r ?? ''}`}>{data.tagline}</p>
-      <p className={`desc ${r ?? ''}`}>{data.desc}</p>
+      <p className={`tagline ${r ?? ''}`} style={step()}>
+        {data.tagline}
+      </p>
+      <p className={`desc ${r ?? ''}`} style={step()}>
+        {data.desc}
+      </p>
       <ul className="features">
-        {data.features.map((f) => (
-          <li className={r} key={f}>
-            {f}
+        {data.features.map((f, i) => (
+          <li className={r} key={f} style={{ ...step(), ['--f' as string]: i }}>
+            <span>{f}</span>
           </li>
         ))}
       </ul>
-      <p className={`proof ${r ?? ''}`}>{data.proof}</p>
-      <div className={`product-actions ${r ?? ''}`}>
+      <p className={`proof ${r ?? ''}`} style={step()}>
+        {data.proof}
+      </p>
+      <div className={`product-actions ${r ?? ''}`} style={step()}>
+        <a
+          className="btn btn-accent"
+          href="#contacto"
+          onClick={(e) => {
+            e.preventDefault()
+            goToContact(kind)
+          }}
+        >
+          {data.cta}
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" />
+          </svg>
+        </a>
         {data.link && (
           <a className="btn btn-ghost" href={data.link} target="_blank" rel="noopener noreferrer">
             {t.products.visit} {data.linkLabel}
@@ -82,16 +110,6 @@ function Copy({ data, reveal }: { data: Product; reveal?: boolean }) {
             </svg>
           </a>
         )}
-        <a
-          className={`btn ${data.link ? 'btn-primary' : 'btn-ghost'}`}
-          href="#contacto"
-          onClick={(e) => {
-            e.preventDefault()
-            scrollTo('#contacto')
-          }}
-        >
-          {t.nav.cta}
-        </a>
       </div>
     </>
   )
@@ -112,7 +130,7 @@ function ProductBlock({ entry, flip }: { entry: Entry; flip?: boolean }) {
         <div className="reveal">
           <Name data={entry.data} logo={entry.logo} />
         </div>
-        <Copy data={entry.data} reveal />
+        <Copy data={entry.data} kind={entry.kind} reveal />
       </div>
       <div className="product-visual">
         <Suspense fallback={null}>
@@ -152,6 +170,7 @@ function ProductStageSection({ entries }: { entries: Entry[] }) {
           el.dataset.active = String(i)
         }
         el.style.setProperty('--explode', stageExplode(p).toFixed(3))
+        el.style.setProperty('--local', stageLocal(i, p).toFixed(3))
       },
     })
     trigger.current = st
@@ -188,7 +207,7 @@ function ProductStageSection({ entries }: { entries: Entry[] }) {
               </button>
               <div className="stage-body">
                 <div className="stage-body-inner">
-                  <Copy data={entry.data} />
+                  <Copy data={entry.data} kind={entry.kind} />
                 </div>
               </div>
             </li>

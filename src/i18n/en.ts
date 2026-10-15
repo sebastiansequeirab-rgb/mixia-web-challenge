@@ -46,8 +46,9 @@ export const en: Dictionary = {
     ventia: {
       tag: 'Consumer credit · White-label BNPL',
       title: 'Ventia',
-      tagline: 'Sell more today. Collect safely, without the hassle.',
-      desc: 'A consumer credit engine that lets your customers take the product home with a down payment and pay the rest in installments, with automated collections. How many installments, which down payment and under which rules: you decide.',
+      tagline: 'Sell today. Collect without chasing anyone.',
+      desc: 'Your customer takes the product home with a down payment and pays the rest in installments. Ventia approves in under a minute, reminds every payment and collects for you. The rules, installments and down payment are yours to set.',
+      cta: 'I want to sell on installments',
       features: [
         'AI scoring with approval in under a minute',
         'Biometric KYC with OCR and fraud prevention',
@@ -61,8 +62,9 @@ export const en: Dictionary = {
     lock: {
       tag: 'Remote locking for financed devices',
       title: 'Mixia Lock',
-      tagline: 'The device you finance answers to your collections.',
-      desc: 'A lock inside the phone, TV or laptop that leaves your store on installments. With payments up to date it works like any other device. When an installment is overdue it locks itself, and returns to normal with a six-character code.',
+      tagline: 'The device you finance works for your collections.',
+      desc: 'An invisible lock inside the phone, TV or laptop that leaves your store on installments. With payments up to date, the device works as always. When an installment is overdue it locks itself, and comes back to life with a six-character code.',
+      cta: 'Protect your financed devices',
       features: [
         'Installs in minutes, by QR or cable, no technician needed',
         'Locks on its own, even offline',
@@ -110,8 +112,9 @@ export const en: Dictionary = {
     smartmed: {
       tag: 'End-to-end clinical management',
       title: 'SmartMed',
-      tagline: 'Your whole medical center, on a single platform.',
-      desc: 'Scheduling, medical records, payments and center metrics in one modular system: each center activates what it needs and adds more as it grows.',
+      tagline: 'Your whole medical center, on one screen.',
+      desc: 'Scheduling, medical records, billing and metrics in a system built from modules: each center activates what it needs today and adds more as it grows. With AI that writes, summarizes and replies on WhatsApp.',
+      cta: 'Modernize your medical center',
       features: [
         'Scheduling per professional and a real-time waiting room',
         'Medical records, prescriptions, imaging and lab',
