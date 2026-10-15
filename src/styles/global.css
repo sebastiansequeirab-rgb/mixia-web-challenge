@@ -14,8 +14,8 @@
   --navy: #6fb4ff;
   --grad: linear-gradient(100deg, var(--cyan) 0%, var(--peri) 50%, var(--violet) 100%);
 
-  --font-display: 'Archivo Variable', 'Avenir Next', system-ui, sans-serif;
-  --font-body: 'Archivo Variable', 'Avenir Next', system-ui, sans-serif;
+  --font-display: 'Unbounded Variable', 'Avenir Next', system-ui, sans-serif;
+  --font-body: 'Hanken Grotesk Variable', 'Avenir Next', system-ui, sans-serif;
 
   --gutter: clamp(20px, 5vw, 72px);
   --max: 1360px;
@@ -63,10 +63,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 740;
-  font-stretch: 112%;
-  letter-spacing: -0.03em;
-  line-height: 0.98;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.04;
   margin: 0;
 }
 
@@ -173,17 +172,17 @@ main {
 }
 
 .h-xl {
-  font-size: clamp(42px, 7vw, 104px);
-  letter-spacing: -0.045em;
-  font-stretch: 118%;
+  font-size: clamp(34px, 5.4vw, 80px);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
 }
 .h-lg {
-  font-size: clamp(34px, 4.8vw, 68px);
-  letter-spacing: -0.04em;
-  max-width: 16ch;
+  font-size: clamp(26px, 3.6vw, 52px);
+  letter-spacing: -0.025em;
+  max-width: 18ch;
 }
 .h-md {
-  font-size: clamp(28px, 3.4vw, 44px);
+  font-size: clamp(20px, 2.4vw, 32px);
 }
 
 .lead {
@@ -523,6 +522,8 @@ main {
 .hero-copy .h-xl .line {
   display: block;
   overflow: hidden;
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
 }
 .hero-copy .h-xl .line > span {
   display: block;
