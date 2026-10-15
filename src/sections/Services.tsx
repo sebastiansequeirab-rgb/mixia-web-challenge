@@ -1,75 +1,143 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { useT } from '../i18n'
 import { useReveal } from '../lib/useReveal'
-import { isTouch } from '../lib/device'
+import { isTouch, prefersReducedMotion } from '../lib/device'
 
-/* Iconos de línea, uno por servicio, en el mismo orden que el diccionario. */
-const icons = [
-  // BNPL
-  <path d="M3 8h18M3 8v9a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8M3 8l2-3h14l2 3M7 14h4" />,
-  // agentes IA
-  <path d="M4 6h16v9H9l-5 4V6zM8 10h.01M12 10h.01M16 10h.01" />,
-  // pagos
-  <path d="M12 3v18M7 7.5A3.5 3.5 0 0 1 10.5 4h3A3.5 3.5 0 0 1 17 7.5c0 2-1.5 3-3.5 3.5h-3C8.5 11.5 7 12.5 7 14.5A3.5 3.5 0 0 0 10.5 18h3a3.5 3.5 0 0 0 3.5-3.5" />,
-  // ciberseguridad
-  <path d="M12 3 4 6v6c0 4.5 3.4 7.8 8 9 4.6-1.2 8-4.5 8-9V6l-8-3zM9 12l2 2 4-4" />,
-  // IA
-  <path d="M9 3h6l1 3h3v6l-2 1v4h-4l-1 3h-4l-1-3H5v-4l-2-1V6h3l1-3zM12 9v6M9 12h6" />,
-  // realidad aumentada
-  <path d="M3 8a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4l-3-3-3 3H5a2 2 0 0 1-2-2V8zM8 11h2M14 11h2" />,
-  // apps
-  <path d="M8 3h8a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zM10 18h4" />,
-  // web
-  <path d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zM3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" />,
-  // nube AWS
-  <path d="M7 18a4 4 0 0 1-.6-7.95A6 6 0 0 1 18 9a4.5 4.5 0 0 1 .5 9H7z" />,
-  // salud y legal
-  <path d="M4 20h16M6 20V9l6-5 6 5v11M10 20v-5h4v5M12 10v4M10 12h4" />,
+type Area = 'fin' | 'ia' | 'plat'
+
+/** Tamaño (columnas × filas en la retícula de 6) y área de cada servicio, en el orden del diccionario. */
+const TILES: { c: number; r: number; area: Area }[] = [
+  { c: 3, r: 2, area: 'fin' }, // BNPL corporativo
+  { c: 3, r: 1, area: 'ia' }, // agentes IA de cobranza
+  { c: 3, r: 1, area: 'fin' }, // sistemas financieros y medios de pago
+  { c: 2, r: 1, area: 'fin' }, // ciberseguridad y PCI-DSS
+  { c: 4, r: 2, area: 'ia' }, // IA a la medida
+  { c: 2, r: 1, area: 'ia' }, // realidad aumentada
+  { c: 2, r: 1, area: 'plat' }, // apps
+  { c: 2, r: 1, area: 'plat' }, // web
+  { c: 2, r: 1, area: 'plat' }, // nube AWS
+  { c: 2, r: 1, area: 'plat' }, // salud y legal
 ]
 
-function Icon({ i, ...rest }: { i: number } & React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.4"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...rest}
-    >
-      {icons[i]}
-    </svg>
-  )
+/** Animación propia de cada tarjeta, solo CSS. */
+function Art({ i }: { i: number }) {
+  switch (i) {
+    case 0:
+      return (
+        <i className="art art-bnpl" aria-hidden="true">
+          <b />
+          <b />
+          <b />
+          <b />
+        </i>
+      )
+    case 1:
+      return (
+        <i className="art art-chat" aria-hidden="true">
+          <b />
+          <b />
+          <b />
+        </i>
+      )
+    case 2:
+      return (
+        <i className="art art-orbit" aria-hidden="true">
+          <b />
+          <b />
+          <b />
+        </i>
+      )
+    case 3:
+      return (
+        <i className="art art-shield" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
+            <path d="M12 3 4 6v6c0 4.5 3.4 7.8 8 9 4.6-1.2 8-4.5 8-9V6l-8-3z" />
+          </svg>
+          <b />
+        </i>
+      )
+    case 4:
+      return (
+        <i className="art art-neural" aria-hidden="true">
+          {Array.from({ length: 12 }, (_, k) => (
+            <b key={k} style={{ ['--k' as string]: k }} />
+          ))}
+        </i>
+      )
+    case 5:
+      return (
+        <i className="art art-cube" aria-hidden="true">
+          <span>
+            <b />
+            <b />
+            <b />
+            <b />
+            <b />
+            <b />
+          </span>
+        </i>
+      )
+    case 6:
+      return (
+        <i className="art art-phone" aria-hidden="true">
+          <b />
+        </i>
+      )
+    case 7:
+      return (
+        <i className="art art-web" aria-hidden="true">
+          <b />
+          <b />
+          <b />
+        </i>
+      )
+    case 8:
+      return (
+        <i className="art art-cloud" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
+            <path d="M7 18a4 4 0 0 1-.6-7.95A6 6 0 0 1 18 9a4.5 4.5 0 0 1 .5 9H7z" />
+          </svg>
+          <b />
+          <b />
+          <b />
+        </i>
+      )
+    default:
+      return (
+        <i className="art art-ecg" aria-hidden="true">
+          <svg viewBox="0 0 120 40" preserveAspectRatio="none">
+            <path d="M0 20h30l6-12 8 24 6-18 5 6h65" />
+          </svg>
+        </i>
+      )
+  }
 }
 
 /**
- * Explorador de servicios: la fila activa (hover en escritorio, tap en móvil) se refleja en el
- * panel pegado de la derecha; en móvil la fila se expande con su descripción.
+ * Mosaico vivo: los diez servicios a la vista en una retícula de tamaños distintos, color por
+ * área, cada tarjeta con su animación. Al pasar el cursor la tarjeta se inclina, se ilumina
+ * donde está el puntero y muestra la explicación.
  */
 export function Services() {
   const { t, lang } = useT()
   const root = useRef<HTMLElement>(null)
-  const [tab, setTab] = useState(0)
-  const [active, setActive] = useState(0)
-  const [open, setOpen] = useState<number | null>(null)
   useReveal(root, [lang])
 
-  const visible = t.services.tabs[tab].items
-  const pick = (i: number) => {
-    setTab(i)
-    setActive(t.services.tabs[i].items[0])
-    setOpen(null)
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (isTouch || prefersReducedMotion) return
+    const el = e.currentTarget
+    const r = el.getBoundingClientRect()
+    const x = (e.clientX - r.left) / r.width
+    const y = (e.clientY - r.top) / r.height
+    el.style.setProperty('--mx', `${x * 100}%`)
+    el.style.setProperty('--my', `${y * 100}%`)
+    el.style.setProperty('--rx', `${(0.5 - y) * 6}deg`)
+    el.style.setProperty('--ry', `${(x - 0.5) * 8}deg`)
   }
-
-  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect()
-    e.currentTarget.style.setProperty('--mx', `${e.clientX - r.left}px`)
-    e.currentTarget.style.setProperty('--my', `${e.clientY - r.top}px`)
+  const onLeave = (e: React.MouseEvent<HTMLElement>) => {
+    e.currentTarget.style.removeProperty('--rx')
+    e.currentTarget.style.removeProperty('--ry')
   }
-
-  const current = t.services.items[active]
 
   return (
     <section id="servicios" ref={root} className="section services">
@@ -78,68 +146,33 @@ export function Services() {
           <p className="eyebrow reveal">{t.services.eyebrow}</p>
           <h2 className="h-lg reveal">{t.services.heading}</h2>
           <p className="lead reveal">{t.services.sub}</p>
-        </div>
-        <div className="services-tabs reveal" role="tablist" aria-label={t.services.eyebrow}>
-          {t.services.tabs.map((tb, i) => (
-            <button
-              key={tb.label}
-              type="button"
-              role="tab"
-              aria-selected={tab === i}
-              className={`services-tab${tab === i ? ' is-active' : ''}`}
-              onClick={() => pick(i)}
-            >
-              {tb.label}
-              <small>{tb.items.length}</small>
-            </button>
-          ))}
-        </div>
-        <div className="services-explorer" onMouseMove={onMove}>
-          <ul className="services-list" key={tab}>
-            {visible.map((i, n) => {
-              const s = t.services.items[i]
-              const isOpen = open === i
-              return (
-                <li
-                  className={`service${active === i ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`}
-                  style={{ ['--i' as string]: n }}
-                  key={s.title}
-                >
-                  <button
-                    type="button"
-                    className="service-row"
-                    aria-expanded={isOpen}
-                    aria-controls={`service-desc-${i}`}
-                    onMouseEnter={() => {
-                      if (!isTouch) setActive(i)
-                    }}
-                    onFocus={() => setActive(i)}
-                    onClick={() => {
-                      setActive(i)
-                      setOpen(isOpen ? null : i)
-                    }}
-                  >
-                    <span className="service-icon">
-                      <Icon i={i} />
-                    </span>
-                    <span className="service-title">{s.title}</span>
-                    <span className="service-plus" aria-hidden="true" />
-                  </button>
-                  <div className="service-desc" id={`service-desc-${i}`}>
-                    <p>{s.desc}</p>
-                  </div>
-                </li>
-              )
-            })}
+          <ul className="services-legend reveal" aria-hidden="true">
+            {t.services.tabs.slice(1).map((tb, i) => (
+              <li key={tb.label} className={['fin', 'ia', 'plat'][i]}>
+                {tb.label}
+              </li>
+            ))}
           </ul>
-          <aside className="services-panel reveal" aria-live="polite">
-            <div className="services-panel-inner" key={active}>
-              <Icon i={active} className="services-panel-icon" />
-              <h3 className="h-md">{current.title}</h3>
-              <p>{current.desc}</p>
-            </div>
-          </aside>
         </div>
+        <ul className="mosaic">
+          {t.services.items.map((s, i) => {
+            const tile = TILES[i]
+            return (
+              <li
+                key={s.title}
+                className={`tile ${tile.area}${tile.r > 1 ? ' big' : ''} reveal`}
+                style={{ ['--c' as string]: tile.c, ['--r' as string]: tile.r }}
+                onMouseMove={onMove}
+                onMouseLeave={onLeave}
+                tabIndex={0}
+              >
+                <Art i={i} />
+                <h3>{s.title}</h3>
+                <p>{s.desc}</p>
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </section>
   )
