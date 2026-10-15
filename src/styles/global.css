@@ -1334,6 +1334,60 @@ main {
   box-shadow: 0 0 10px var(--accent);
 }
 
+/* Laptops de poca altura (768-860 px): la sección fijada debe caber completa bajo la nav. */
+@media (min-width: 861px) and (max-height: 880px) {
+  .products-stage {
+    padding-top: calc(var(--nav-h) + 8px);
+    min-height: 0;
+  }
+  .stage-name {
+    padding: 11px 0;
+  }
+  .stage-name h3 {
+    font-size: clamp(22px, 2vw, 28px);
+  }
+  .stage-name .product-logo {
+    height: 20px;
+  }
+  .stage-name .product-logo.ventia {
+    height: 24px;
+  }
+  .stage-body-inner .tagline {
+    font-size: clamp(18px, 1.5vw, 22px);
+    margin-bottom: 10px;
+  }
+  .stage-body-inner .desc {
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .stage-body-inner .features {
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .stage-body-inner .features li {
+    font-size: 14px;
+  }
+  .stage-body-inner .proof {
+    padding-top: 10px;
+    font-size: 13px;
+  }
+  .stage-body-inner .product-actions {
+    margin-top: 10px;
+  }
+  .stage-body-inner > :last-child {
+    margin-bottom: 14px;
+  }
+  .stage-body-inner .btn {
+    height: 42px;
+    padding-inline: 16px;
+    font-size: 14px;
+  }
+  .stage-visual {
+    max-width: min(520px, 66vh);
+  }
+}
+
 /* ---------- Services: mosaico vivo ---------- */
 .services-legend {
   display: flex;
