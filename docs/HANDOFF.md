@@ -1,4 +1,21 @@
-# Handoff: Mixia Web Challenge, ronda 2 (feedback de Sebastián)
+# Handoff: Mixia Web Challenge
+
+## Ronda 3 (siguiente chat): interacción inmersiva
+
+Escrito el 2026-10-15 a las 12:30. Sebastián: la página "está muy genérica y aburrida" tras la
+ronda 2; pidió inspirarse en mercury.com y ghost.ai.
+
+- Qué copiar y por qué: `docs/inspiracion/ronda-3.md` (hojas de contacto `mercury-*.png`,
+  `ghost-*.png` ahí mismo; se regeneran con `node scripts/inspiracion.mjs <url> <prefijo>`).
+- Plan borrador con 7 bloques, qué no se hace y cómo sabremos que quedó:
+  `docs/specs/0001-ronda-3-interaccion.md`. **Primero se aprueba con Sebastián, luego se construye.**
+- Arranque sugerido: aprobar o recortar el spec, construir el bloque 1 (productos en sección
+  fijada) y desplegar antes de seguir, porque es el que más cambia la sensación de la página.
+- Datos que faltan y solo él tiene: la cita de cliente para el bloque 5; si el Gerais de
+  gerais.com.ve es el cliente correcto.
+- Estado del repo al cerrar la ronda 2: ver la sección siguiente. Todo en `main`, en producción.
+
+# Ronda 2 (feedback de Sebastián), cerrada
 
 Escrito el 2026-10-15 a las 11:20; ronda 2 aplicada el mismo día a las 12:05. Presentación mañana
 16-oct, 5 minutos.
