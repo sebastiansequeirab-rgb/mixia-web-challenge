@@ -35,7 +35,11 @@ Sitio de una página para el Mixia Web Challenge. Lee `README.md` para el qué; 
   de clientes (LifePhone, Damasco).
 - Logos de clientes en `public/clientes/` con su fuente en `FUENTES.md`; se pintan en blanco con
   `mask-image`, así que sirven en cualquier color. El que no tiene archivo va como wordmark.
-- Tipografía: una sola familia, Archivo Variable (`@fontsource-variable/archivo/wdth.css`); los
-  títulos usan `font-stretch` expandido. Sin eyebrows con raya ni cifras en cajas (feedback de
-  Sebastián, ronda 2).
+- Tipografía: Unbounded Variable para títulos y Hanken Grotesk Variable para cuerpo (ronda 4;
+  Archivo le pareció "AI generated" a Sebastián). Unbounded es ancha: títulos cortos y tamaños
+  moderados. Sin eyebrows con raya ni cifras en cajas (feedback de Sebastián, ronda 2).
+- Títulos de sección pasan por `SectionHead`/`Heading` (`src/sections/SectionHead.tsx`); la palabra
+  clave en degradado se marca con `*asteriscos*` en el diccionario.
+- Contacto no usa servicio externo: el flujo termina en WhatsApp/`mailto:` prellenado. Los CTA de
+  productos preseleccionan el interés con el evento `mixia:interest`.
 - La imagen OG (`public/og.png`) es una captura del hero; regenerarla si cambia el hero.

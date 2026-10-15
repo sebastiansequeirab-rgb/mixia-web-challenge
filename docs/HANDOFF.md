@@ -1,5 +1,39 @@
 # Handoff: Mixia Web Challenge
 
+## Ronda 4 aplicada (2026-10-15, día de la presentación; contra HEAD de `main`, en producción)
+
+Feedback de Sebastián con capturas sobre la ronda 3; spec `docs/specs/0002-ronda-4-sazon.md`
+aprobado en el chat y construido el mismo día. Decisiones: tipografía A (Unbounded + Hanken
+Grotesk), contacto por WhatsApp/correo prellenado sin servicio externo, servicios como mosaico.
+
+Qué cambió, por commit:
+- **Tipografía**: Unbounded (títulos) + Hanken Grotesk (cuerpo), `src/main.tsx`. Títulos más
+  chicos porque Unbounded es ancha. Las líneas animadas del hero ya no recortan descendentes.
+- **Hero**: la M es media M (solo la mitad derecha, `buildM` en `src/three/ParticleM.tsx`) con
+  el borde plano pegado a la cara de corte del cerebro (`LogoMark.tsx`). Título por letras con
+  color de degradado por letra (el clip de fondo no sobrevive a las transformaciones), aurora de
+  fondo, parallax con el cursor, botones de vuelta. Sin "Deslice" ni correo inline.
+- **Cifras**: banda con línea de pulso SVG, glifo animado por cifra, contador de conexiones/s que
+  late ±25 tras contar. Sin hueco antes de productos.
+- **Productos**: copy nuevo, CTA por producto con su color (`.btn-accent`) que manda a contacto con
+  el interés marcado (evento `mixia:interest`), texto que entra en cascada (`--k`) y beneficios
+  que se iluminan con el scroll (`--local`, `--f`).
+- **Servicios**: mosaico de 10 tarjetas (`TILES` en `Services.tsx`, retícula de 6 columnas),
+  color por área, arte CSS propio por tarjeta, inclinación y foco con el cursor.
+- **Contacto**: flujo de 3 pasos (interés → nombre y correo → enviar) que abre WhatsApp VE o el
+  correo con el mensaje escrito. Las tres tarjetas directas quedan abajo alineadas. Se fueron
+  "Por dónde empezar" y la cita de cliente (no había cita real).
+- **Títulos**: `src/sections/SectionHead.tsx`, palabra por palabra con la palabra clave en
+  degradado (marcada con `*asteriscos*` en el diccionario).
+- **Clientes**: "Grupo Higea". Logos de Damasco, Higea, R4 y SANUTEM: la búsqueda (subagente,
+  15-oct) no encontró ningún archivo público; siguen como wordmark hasta que Sebastián mande archivos.
+
+Comprobado en local sobre el build (2026-10-15): Lighthouse escritorio 97 / 100 / 100 / 100,
+`scripts/comportamiento.mjs` en verde (ES/EN, móvil 390/390, reduced motion, consola limpia).
+Capturas v4 en `docs/capturas/v4/`. Producción sirve el último commit (chunk `index-*.js`
+comprobado). Scripts nuevos: `scripts/tipografia.mjs` (hero con otra fuente de Google Fonts, para
+escoger viendo) y `scripts/pantalla.mjs`.
+
 ## Ronda 3 aplicada (2026-10-15 tarde, contra HEAD de `main`, en producción)
 
 Spec `docs/specs/0001-ronda-3-interaccion.md` aprobado por Sebastián con tres ajustes (vista
