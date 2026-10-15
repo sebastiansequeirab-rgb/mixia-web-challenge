@@ -1,4 +1,4 @@
-import { useMemo, useRef, type RefObject } from 'react'
+import { useMemo, useRef } from 'react'
 import * as THREE from 'three'
 import { useFrame, useThree } from '@react-three/fiber'
 import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.js'
@@ -26,7 +26,7 @@ function buildM() {
   s.lineTo(w, -1)
   s.closePath()
   const geo = new THREE.ExtrudeGeometry(s, {
-    depth: 0.3,
+    depth: 0.42,
     bevelEnabled: true,
     bevelThickness: 0.05,
     bevelSize: 0.05,
@@ -41,14 +41,14 @@ const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
 const hit = new THREE.Vector3()
 const local = new THREE.Vector3()
 
-export function ParticleM({ scroll }: { scroll: RefObject<number> }) {
+export function ParticleM() {
   const group = useRef<THREE.Group>(null!)
   const { camera, raycaster, pointer } = useThree()
 
   const { solid, points } = useMemo(() => {
     const solid = buildM()
     const sampler = new MeshSurfaceSampler(new THREE.Mesh(solid)).build()
-    const count = lowPower ? 1400 : 3200
+    const count = lowPower ? 1800 : 4200
     const positions = new Float32Array(count * 3)
     const rand = new Float32Array(count)
     const size = new Float32Array(count)
@@ -74,8 +74,8 @@ export function ParticleM({ scroll }: { scroll: RefObject<number> }) {
       uPointer: { value: new THREE.Vector3(10, 10, 10) },
       uPointerStrength: { value: 0 },
       uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
-      uSize: { value: lowPower ? 10 : 11 },
-      uColorShift: { value: 0.75 },
+      uSize: { value: lowPower ? 12 : 14 },
+      uColorShift: { value: 0.35 },
     }),
     [],
   )
@@ -84,11 +84,7 @@ export function ParticleM({ scroll }: { scroll: RefObject<number> }) {
     const t = state.clock.elapsedTime
     uniforms.uTime.value = prefersReducedMotion ? 0 : t
     const g = group.current
-    const px = pointer.x
-    const py = pointer.y
-    const inside = Math.abs(px) <= 1 && Math.abs(py) <= 1
-    const ry = (prefersReducedMotion ? 0 : Math.sin(t * 0.3) * 0.2) + (inside ? px * 0.3 : 0)
-    g.rotation.y += (ry - g.rotation.y) * Math.min(1, delta * 2)
+    const inside = Math.abs(pointer.x) <= 1 && Math.abs(pointer.y) <= 1
 
     raycaster.setFromCamera(pointer, camera)
     let strength = 0
@@ -99,16 +95,12 @@ export function ParticleM({ scroll }: { scroll: RefObject<number> }) {
       strength = 1
     }
     uniforms.uPointerStrength.value += (strength - uniforms.uPointerStrength.value) * Math.min(1, delta * 4)
-
-    const s = scroll.current ?? 0
-    g.position.y = 0.05 + s * 1.2
-    g.scale.setScalar((1 - s * 0.4) * 0.64)
   })
 
   return (
-    <group ref={group} position={[1.5, 0.05, 0]}>
+    <group ref={group}>
       <mesh geometry={solid}>
-        <meshBasicMaterial color="#6e5fd6" transparent opacity={0.1} depthWrite={false} />
+        <meshBasicMaterial color="#6e5fd6" transparent opacity={0.14} depthWrite={false} />
       </mesh>
       <points geometry={points} frustumCulled={false}>
         <shaderMaterial
