@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react'
 import { I18nProvider } from './i18n'
 import { initScroll, ScrollTrigger } from './lib/scroll'
-import { GL } from './three/Scene'
 import { Loader } from './sections/Loader'
 import { Nav } from './sections/Nav'
 import { Hero } from './sections/Hero'
@@ -12,9 +11,12 @@ import { Clients } from './sections/Clients'
 import { Contact } from './sections/Contact'
 import { Footer } from './sections/Footer'
 
+const GL = lazy(() => import('./three/Scene'))
+
 export default function App() {
   const container = useRef<HTMLDivElement>(null!)
   const [ready, setReady] = useState(false)
+  const onDone = useCallback(() => setReady(true), [])
 
   useEffect(() => {
     initScroll()
@@ -25,7 +27,7 @@ export default function App() {
   return (
     <I18nProvider>
       <div ref={container} className="app">
-        <Loader onDone={() => setReady(true)} />
+        <Loader onDone={onDone} />
         <Nav />
         <main>
           <Hero ready={ready} />
@@ -37,7 +39,9 @@ export default function App() {
         </main>
         <Footer />
         <div className="grain" aria-hidden="true" />
-        <GL eventSource={container} />
+        <Suspense fallback={null}>
+          <GL eventSource={container} />
+        </Suspense>
       </div>
     </I18nProvider>
   )

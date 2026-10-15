@@ -470,6 +470,30 @@ main {
   justify-self: end;
   pointer-events: auto;
 }
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 45% 50%,
+    rgba(94, 230, 240, 0.16),
+    rgba(139, 140, 245, 0.1) 40%,
+    transparent 68%
+  );
+  filter: blur(40px);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(900px 600px at 85% 15%, rgba(139, 140, 245, 0.08), transparent 60%),
+    radial-gradient(700px 500px at 10% 90%, rgba(94, 230, 240, 0.05), transparent 60%);
+  pointer-events: none;
+  z-index: -1;
+}
 .hero-hint {
   position: absolute;
   left: 0;

@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react'
-import { View } from '@react-three/drei'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import { useT } from '../i18n'
 import { gsap, scrollTo, ScrollTrigger } from '../lib/scroll'
 import { isTouch, prefersReducedMotion } from '../lib/device'
-import { BrainScene } from '../three/BrainScene'
+
+const HeroView = lazy(() => import('../three/HeroView'))
 
 export function Hero({ ready }: { ready: boolean }) {
   const { t, lang } = useT()
@@ -93,9 +93,9 @@ export function Hero({ ready }: { ready: boolean }) {
           </div>
         </div>
         <div className="hero-visual" ref={visual}>
-          <View className="view" style={{ width: '100%', height: '100%' }}>
-            <BrainScene scroll={scroll} />
-          </View>
+          <Suspense fallback={null}>
+            <HeroView scroll={scroll} />
+          </Suspense>
           <p className="hero-hint hero-fade">{isTouch ? t.hero.hintTouch : t.hero.hint}</p>
         </div>
       </div>

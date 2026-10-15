@@ -43,7 +43,7 @@ export function Nav() {
             ))}
           </nav>
           <div className="nav-right">
-            <button className="lang" onClick={toggle} aria-label={t.nav.toggle}>
+            <button className="lang" onClick={toggle} aria-label={`ES / EN. ${t.nav.toggle}`}>
               {lang === 'es' ? <b>ES</b> : 'ES'}
               <span>/</span>
               {lang === 'en' ? <b>EN</b> : 'EN'}

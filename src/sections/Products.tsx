@@ -1,11 +1,10 @@
-import { useRef, type ReactNode } from 'react'
-import { View } from '@react-three/drei'
+import { lazy, Suspense, useRef } from 'react'
 import { useT } from '../i18n'
 import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
-import { VentiaCard } from '../three/VentiaCard'
-import { LockPhone } from '../three/LockPhone'
-import { SmartMedPulse } from '../three/SmartMedPulse'
+import type { ProductKind } from '../three/ProductView'
+
+const ProductView = lazy(() => import('../three/ProductView'))
 
 type Product = {
   tag: string
@@ -24,14 +23,14 @@ function ProductBlock({
   glow,
   logo,
   flip,
-  children,
+  kind,
 }: {
   data: Product
   accent: string
   glow: string
   logo?: { src: string; className?: string; width: number; height: number }
   flip?: boolean
-  children: (progress: React.RefObject<number>) => ReactNode
+  kind: ProductKind
 }) {
   const { t } = useT()
   const block = useRef<HTMLElement>(null)
@@ -85,7 +84,9 @@ function ProductBlock({
         </p>
       </div>
       <div className="product-visual">
-        <View style={{ width: '100%', height: '100%' }}>{children(progress)}</View>
+        <Suspense fallback={null}>
+          <ProductView kind={kind} progress={progress} />
+        </Suspense>
       </div>
     </article>
   )
@@ -110,22 +111,18 @@ export function Products() {
           accent="#f2a552"
           glow="rgba(242,165,82,0.22)"
           logo={{ src: '/brand/ventia-mark.png', className: 'ventia', width: 960, height: 291 }}
-        >
-          {(p) => <VentiaCard progress={p} />}
-        </ProductBlock>
+          kind="ventia"
+        />
 
-        <ProductBlock data={t.products.lock} accent="#8b8cf5" glow="rgba(139,140,245,0.25)" flip>
-          {(p) => <LockPhone progress={p} />}
-        </ProductBlock>
+        <ProductBlock data={t.products.lock} accent="#8b8cf5" glow="rgba(139,140,245,0.25)" flip kind="lock" />
 
         <ProductBlock
           data={t.products.smartmed}
           accent="#5ee6f0"
           glow="rgba(94,230,240,0.2)"
           logo={{ src: '/brand/smartmed-mark.png', width: 675, height: 110 }}
-        >
-          {(p) => <SmartMedPulse progress={p} />}
-        </ProductBlock>
+          kind="smartmed"
+        />
       </div>
     </section>
   )
