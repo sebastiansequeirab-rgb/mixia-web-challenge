@@ -1,9 +1,29 @@
 # Handoff: Mixia Web Challenge, ronda 2 (feedback de Sebastián)
 
-Escrito el 2026-10-15 a las 11:20. Fecha límite: **hoy antes de las 6 pm**. Presentación mañana
+Escrito el 2026-10-15 a las 11:20; ronda 2 aplicada el mismo día a las 12:05. Presentación mañana
 16-oct, 5 minutos.
 
-## Estado comprobado
+## Ronda 2 aplicada (2026-10-15 12:05, contra HEAD de `main`)
+
+Los 9 puntos de abajo están aplicados. Capturas v2 en `docs/capturas/v2/` (mismo script que v1).
+Comprobado en local sobre el build: Lighthouse escritorio 97 / 100 / 100 / 100,
+`scripts/comportamiento.mjs` todo en verde, móvil 390 px sin desbordes.
+Decisiones tomadas en la ronda:
+- Hero: el isotipo gira en vaivén de ±17° con cabeceo, no da la vuelta completa (la M quedaría
+  escondida detrás del hemisferio). `src/three/LogoMark.tsx` lleva todo el movimiento.
+- Mixia Lock: 3 pantallas en canvas (`src/three/lockScreens.ts`) rotan cada 3,4 s en bucle; el
+  candado se abre en "desbloqueado" y se pone ámbar en "bloqueado".
+- Tipografía: Archivo Variable, una sola familia (títulos expandidos). Elegida por "corporativo
+  y tecnológico".
+- Logos: AWS, Google, Honda (Wikimedia Commons), Gerais y Scripps (sitio oficial). Damasco,
+  Banco R4, Grupo Higuea y SANUTEM no aparecen en la web: van como wordmark. **Confirmar con
+  Sebastián que el Gerais de gerais.com.ve (óptica) es el cliente.**
+- Contacto: anillo de partículas de fondo (`src/three/SignalRing.tsx`), tarjetas magnéticas y
+  hora local de Caracas y Ciudad de México.
+- Nav: logo en blanco con halo (vuelve al degradado en hover), línea de progreso de lectura,
+  subrayado que se desliza a la sección activa, menú móvil a pantalla completa.
+
+## Estado comprobado en la ronda 1 (referencia)
 
 - Sitio en vivo: https://mixia-web-challenge.vercel.app (alias de producción, deploy con
   `vercel --prod --yes`). Repo: https://github.com/sebastiansequeirab-rgb/mixia-web-challenge,
@@ -75,4 +95,6 @@ por sección, nada de `MeshTransmissionMaterial` dentro de `View`, Lenis + Scrol
 ## Pendiente después del rediseño
 
 - Guion de 5 minutos para la presentación del 16.
-- Regenerar `public/og.png` si cambia el hero.
+- Logos de Damasco, Banco R4, Grupo Higuea y SANUTEM si Sebastián consigue los archivos
+  (ver `public/clientes/FUENTES.md`).
+- `public/og.png` ya regenerado con el hero nuevo.

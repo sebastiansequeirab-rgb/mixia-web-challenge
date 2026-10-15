@@ -25,6 +25,12 @@ Sitio de una página para el Mixia Web Challenge. Lee `README.md` para el qué; 
 
 ## Contenido
 
-- Marcas en `public/brand/`. La captura de pantalla de bloqueo (`public/textures/lock-screen.png`)
-  es la versión white label (LifePhone); no usar capturas con marca Damasco.
+- Marcas en `public/brand/`. Las pantallas de Mixia Lock se dibujan en canvas 2D
+  (`src/three/lockScreens.ts`, textos en i18n bajo `products.lock.screens`); no usar capturas
+  de clientes (LifePhone, Damasco).
+- Logos de clientes en `public/clientes/` con su fuente en `FUENTES.md`; se pintan en blanco con
+  `mask-image`, así que sirven en cualquier color. El que no tiene archivo va como wordmark.
+- Tipografía: una sola familia, Archivo Variable (`@fontsource-variable/archivo/wdth.css`); los
+  títulos usan `font-stretch` expandido. Sin eyebrows con raya ni cifras en cajas (feedback de
+  Sebastián, ronda 2).
 - La imagen OG (`public/og.png`) es una captura del hero; regenerarla si cambia el hero.
