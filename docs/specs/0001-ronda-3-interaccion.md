@@ -1,6 +1,7 @@
 # Spec 0001 · Ronda 3: interacción inmersiva (borrador para aprobar)
 
-Estado: **aprobado** por Sebastián el 2026-10-15 (tarde) con tres ajustes: la vista explotada de
+Estado: **construido y en producción** (2026-10-15, evidencia en `docs/HANDOFF.md`, sección
+"Ronda 3 aplicada"). Aprobado por Sebastián el 2026-10-15 (tarde) con tres ajustes: la vista explotada de
 Lock va dentro de la sección fijada (no como bloque aparte), no hay capítulos al pie (la nav ya
 marca sección activa y progreso) y la transición 3D es cross-fade con escala, giro y partículas,
 no morfología real. Gerais de gerais.com.ve confirmado como cliente. Falta la cita del bloque 5.
@@ -31,7 +32,8 @@ una empieza de cero.
 4. **Hero**: chips técnicos bajo el título (14 años · 6 países · 3 productos en producción) y
    campo de correo inline con botón "Hablemos" que abre `mailto:` con el correo prellenado.
 5. **Cita grande** entre Clientes y Contacto, sección de fondo claro suave (tinta invertida, no
-   crema) con una frase aprobada por Sebastián. **Falta la cita: pedírsela.**
+   crema) con una frase aprobada por Sebastián. **Construida con texto de muestra; se muestra
+   solo en desarrollo hasta tener la cita real.**
 6. **Servicios por pestañas** (Finanzas y pagos · Inteligencia artificial · Plataforma y nube)
    encima del explorador actual; cada pestaña filtra las filas.
 7. **Cierre de contacto con dos tarjetas**: "Para su retail" (Ventia + Lock) y "Para su centro

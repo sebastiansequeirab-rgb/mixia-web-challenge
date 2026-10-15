@@ -1,19 +1,42 @@
 # Handoff: Mixia Web Challenge
 
-## Ronda 3 (siguiente chat): interacción inmersiva
+## Ronda 3 aplicada (2026-10-15 tarde, contra HEAD de `main`, en producción)
 
-Escrito el 2026-10-15 a las 12:30. Sebastián: la página "está muy genérica y aburrida" tras la
-ronda 2; pidió inspirarse en mercury.com y ghost.ai.
+Spec `docs/specs/0001-ronda-3-interaccion.md` aprobado por Sebastián con tres ajustes (vista
+explotada dentro de la sección fijada, sin capítulos al pie, transición por cross-fade) y
+construido completo. Gerais confirmado como cliente.
 
-- Qué copiar y por qué: `docs/inspiracion/ronda-3.md` (hojas de contacto `mercury-*.png`,
+Qué hay nuevo, por commit:
+- **Productos en sección fijada** (`src/sections/Products.tsx`, `src/three/ProductStage.tsx`,
+  matemática en `src/lib/stage.ts`): lista a la izquierda que se abre tramo a tramo, un solo
+  `View` a la derecha donde tarjeta → teléfono → anillo se cruzan con ráfaga de partículas, y
+  el teléfono de Mixia Lock se abre en capas con tres etiquetas y plano técnico tenue. Riel de
+  tres marcas a la derecha. Móvil (<860 px) y reduced motion: tres bloques apilados como en v2.
+- **Hero**: chips (14 años · 6 países · 3 productos) y correo inline que abre `mailto:` con
+  asunto y cuerpo prellenados. "Ver productos" pasó a enlace pequeño bajo el formulario.
+- **Servicios**: pestañas Todos · Finanzas y pagos · IA · Plataforma y nube que filtran las
+  filas (mapa de índices en i18n `services.tabs`).
+- **Contacto**: dos puertas de entrada arriba de las tarjetas ("Para su retail", "Para su centro
+  médico"), cada una con `mailto:` y asunto propio.
+- **Cita de cliente** (`src/sections/Quote.tsx`, fondo claro, tinta invertida): construida pero
+  **solo se muestra en desarrollo** (`QUOTE_READY = import.meta.env.DEV`) porque el texto es de
+  muestra. **Pendiente: Sebastián da la cita real (frase, nombre, cargo, empresa)**; va en i18n
+  `quote` de es/en y se cambia `QUOTE_READY` a `true`.
+
+Comprobado en local sobre el build (2026-10-15): Lighthouse escritorio 97 / 100 / 100 / 100,
+`scripts/comportamiento.mjs` todo en verde (ES/EN persiste, móvil 390/390, reduced motion,
+consola sin errores). Capturas v3 en `docs/capturas/v3/` (`escritorio-*`, `movil-*`, y
+`escenario-*` con 8 puntos del scroll de la sección fijada, hechas con `scripts/escenario.mjs`).
+Producción sirve el bundle del último commit (comprobado por el nombre del chunk `index-*.js`).
+`public/og.png` regenerado con el hero nuevo.
+
+Scripts nuevos: `scripts/escenario.mjs` (sección fijada en 8 puntos) y `scripts/pantalla.mjs`
+(una captura con un selector arriba, escritorio o móvil).
+
+### Inspiración de la ronda 3 (referencia)
+
+- Qué se copió y por qué: `docs/inspiracion/ronda-3.md` (hojas de contacto `mercury-*.png`,
   `ghost-*.png` ahí mismo; se regeneran con `node scripts/inspiracion.mjs <url> <prefijo>`).
-- Plan borrador con 7 bloques, qué no se hace y cómo sabremos que quedó:
-  `docs/specs/0001-ronda-3-interaccion.md`. **Primero se aprueba con Sebastián, luego se construye.**
-- Arranque sugerido: aprobar o recortar el spec, construir el bloque 1 (productos en sección
-  fijada) y desplegar antes de seguir, porque es el que más cambia la sensación de la página.
-- Datos que faltan y solo él tiene: la cita de cliente para el bloque 5; si el Gerais de
-  gerais.com.ve es el cliente correcto.
-- Estado del repo al cerrar la ronda 2: ver la sección siguiente. Todo en `main`, en producción.
 
 # Ronda 2 (feedback de Sebastián), cerrada
 
