@@ -28,12 +28,6 @@ export const en: Dictionary = {
     hint: 'Move your cursor over the neural network',
     hintTouch: 'Touch the neural network',
     chips: ['14 years', '6 countries', '3 products in production'],
-    emailLabel: 'Your email',
-    emailPlaceholder: 'name@company.com',
-    emailCta: "Let's talk",
-    emailSubject: 'I want to talk with Mixia',
-    emailBody: "Hi, I'd like to discuss a project. You can reach me at",
-    scroll: 'Scroll',
   },
   stats: {
     label: 'Figures',

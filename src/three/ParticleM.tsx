@@ -5,25 +5,25 @@ import { MeshSurfaceSampler } from 'three/examples/jsm/math/MeshSurfaceSampler.j
 import { pointsFragment, pointsVertex } from './brainShaders'
 import { lowPower, prefersReducedMotion } from '../lib/device'
 
-/** La "M" del logo como sólido extruido con bisel; sirve de molde para las partículas. */
+/**
+ * Media M, como en el logo: solo la mitad derecha. El borde izquierdo (x = 0) es plano y se pega a
+ * la cara de corte del cerebro; el brazo diagonal sube desde ahí hasta el fuste de la derecha,
+ * que remata en una esquina redondeada. Sirve de molde para las partículas.
+ */
 function buildM() {
-  const w = 0.3 // ancho del trazo
-  const k = 0.52 // altura donde el trazo interior encuentra la barra
-  const tip = -0.05 // punta inferior exterior de la V
-  const inner = tip + 0.5 // punta interior de la V
+  const w = 0.32 // ancho del fuste
+  const right = 1.0 // borde derecho
+  const stem = right - w
+  const r = 0.16 // radio de la esquina superior derecha
   const s = new THREE.Shape()
-  s.moveTo(0, -1)
-  s.lineTo(0, 1)
-  s.lineTo(w, 1)
-  s.lineTo(0.55, tip)
-  s.lineTo(1.1 - w, 1)
-  s.lineTo(1.1, 1)
-  s.lineTo(1.1, -1)
-  s.lineTo(1.1 - w, -1)
-  s.lineTo(1.1 - w, 1 - k)
-  s.lineTo(0.55, inner)
-  s.lineTo(w, 1 - k)
-  s.lineTo(w, -1)
+  s.moveTo(0, 0.2) // borde plano contra el cerebro (arriba)
+  s.lineTo(stem, 1) // arista superior del brazo diagonal
+  s.lineTo(right - r, 1)
+  s.quadraticCurveTo(right, 1, right, 1 - r) // esquina redondeada
+  s.lineTo(right, -1)
+  s.lineTo(stem, -1)
+  s.lineTo(stem, 0.42) // interior del fuste hasta donde nace el brazo
+  s.lineTo(0, -0.38) // arista inferior del brazo diagonal, de vuelta al cerebro
   s.closePath()
   const geo = new THREE.ExtrudeGeometry(s, {
     depth: 0.42,
@@ -31,9 +31,10 @@ function buildM() {
     bevelThickness: 0.05,
     bevelSize: 0.05,
     bevelSegments: 3,
-    curveSegments: 3,
+    curveSegments: 6,
   })
-  geo.center()
+  // No se centra: el borde izquierdo queda en x = 0 para pegarlo a la cara de corte del cerebro.
+  geo.translate(0, 0, -0.21)
   return geo
 }
 

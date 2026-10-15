@@ -17,7 +17,7 @@ export function LogoMark({ scroll }: { scroll: RefObject<number> }) {
   const group = useRef<THREE.Group>(null!)
   const { pointer, viewport } = useThree()
   const smooth = useRef({ x: 0, y: 0 })
-  const fit = Math.min(1, viewport.width / 2.7) * 1.08
+  const fit = Math.min(1, viewport.width / 2.7) * 1.12
 
   useFrame((state, delta) => {
     const g = group.current
@@ -38,10 +38,11 @@ export function LogoMark({ scroll }: { scroll: RefObject<number> }) {
 
   return (
     <group ref={group}>
-      <group position={[-0.02, 0, 0]}>
+      <group position={[-0.3, 0, 0]}>
         <Brain scroll={scroll} />
       </group>
-      <group position={[0.6, -0.2, 0.3]} scale={0.7}>
+      {/* La M nace en la cara de corte (x = -0.3): el borde plano del molde queda pegado al cerebro. */}
+      <group position={[-0.3, -0.12, 0.05]} scale={[0.82, 0.78, 0.78]}>
         <ParticleM />
       </group>
     </group>
