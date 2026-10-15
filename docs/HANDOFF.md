@@ -50,9 +50,12 @@ por sección, nada de `MeshTransmissionMaterial` dentro de `View`, Lenis + Scrol
 5. **Servicios ("Lo que hacemos por su negocio"): muy básico.** Quiere algo interactivo, visual
    y llamativo "para sumergirse en lo que ofrecemos". Hoy es un grid 2 columnas con icono.
 6. **Clientes: agregar logos.** Hoy es un marquee tipográfico. No hay archivos de logos en el
-   repo ni en `~/Presentaciones Mixia`. Pedirle los logos a Sebastián o bajarlos de las webs de
-   cada cliente (Damasco, Honda Motors, Gerais, AWS, Google, Scripps Health, Banco R4, Grupo
-   Higuea, SANUTEM). Ojo con marcas de terceros: usar versiones oficiales en monocromo.
+   repo ni en `~/Presentaciones Mixia`. **Decidido por Sebastián: buscar cada logo en la web**
+   (sitio oficial de cada cliente, Wikimedia Commons o Brandfetch), con un subagente
+   `researcher`. Clientes: Damasco (mitiendadamasco), Honda Motors, Gerais, AWS, Google,
+   Scripps Health, Banco R4, Grupo Higuea, SANUTEM. Guardarlos en `public/clientes/` como SVG
+   o PNG, en monocromo blanco para que convivan sobre tinta, y anotar la fuente de cada uno en
+   `public/clientes/FUENTES.md`.
 7. **Contacto: demasiado básico, "sin alma".** Quiere que asombre a quien vaya a contactar.
 8. **El logo de la nav (arriba a la izquierda) no se ve contra el fondo.** El mark tiene
    degradado cian→violeta sobre tinta; a 34 px se pierde. Lectura: versión del mark en blanco o
