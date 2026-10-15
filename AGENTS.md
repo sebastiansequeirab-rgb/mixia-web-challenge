@@ -17,6 +17,10 @@ Sitio de una página para el Mixia Web Challenge. Lee `README.md` para el qué; 
 - **Un solo motor de scroll.** Lenis alimenta a GSAP ScrollTrigger (`src/lib/scroll.ts`). No usar
   `ScrollControls` de drei ni `scroll-behavior: smooth`.
 - Las escenas leen el scroll por `RefObject<number>` (`useSectionProgress`), nunca por estado de React.
+- Shaders propios (`Brain`, `ParticleM`): R3F copia el objeto `uniforms` al aplicarlo; mutar el
+  objeto de `useMemo` no llega al material. Sincronizar en `material.uniforms[k].value` cada frame.
+- Nada de texto con degradado, etiquetas en mayúsculas con tracking, chips, blur de vidrio ni
+  barras de color en un lado: son rastros de diseño por IA (ronda 5). Énfasis = peso 300 o color sólido.
 - `src/lib/device.ts` decide `lowPower` y `prefersReducedMotion`; toda escena nueva debe respetarlos.
 - Productos en escritorio es una sección fijada (`ScrollTrigger.pin`) con un solo `View`
   (`src/three/ProductStage.tsx`); la matemática de tramos vive en `src/lib/stage.ts` sin importar

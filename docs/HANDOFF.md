@@ -1,5 +1,28 @@
 # Handoff: Mixia Web Challenge
 
+## Ronda 5 aplicada (2026-10-15, mismo día; "AI free"; en producción)
+
+Sebastián pidió revisar la página entera y quitar los rastros de diseño hecho por IA. Lista
+de rastros (subagente researcher; fuentes impeccable.style/slop, 925studios.co, adriankrebs.ch):
+texto con degradado en títulos y números, eyebrow/etiquetas en mayúsculas con tracking, chips,
+glassmorphism con blur, tarjetas con borde de color en un lado, blobs morados con halo, tríptico
+de tarjetas con icono, "01/02/03", Inter/Space Grotesk, copy genérico.
+
+Qué cambió:
+- **Hero**: una palabra por línea (se arregló la "a" suelta), "con inteligencia." en peso 300, sin
+  eyebrow ni chips (los tres datos van en una línea de texto), botón de acento + enlace con flecha.
+  **El isotipo se arma desde el caos al cargar** (uniform `uAssemble`, estado en
+  `src/three/heroState.ts`) y **un clic manda una onda por la red** (`uPulse`). Hallazgo: R3F copia
+  el objeto `uniforms` al aplicarlo, así que mutar nuestro objeto no llegaba al material; ahora
+  `Brain` y `ParticleM` sincronizan los valores en `material.uniforms` cada frame (esto también
+  arregló la repulsión del puntero, que no funcionaba).
+- **Títulos**: la palabra clave va en peso 300 en vez de degradado. Eyebrows en minúscula, sin
+  tracking. Cifras en blanco sólido. Mosaico sin barra de color. Contacto sin blur.
+- Bug corregido: el contador de cifras tomaba los `<b>` de los glifos (`.stat > b`).
+
+Comprobado sobre el build: Lighthouse 97/100/100/100, comportamiento en verde, capturas v4
+regeneradas, OG regenerado. Producción sirve el último commit.
+
 ## Ronda 4 aplicada (2026-10-15, día de la presentación; contra HEAD de `main`, en producción)
 
 Feedback de Sebastián con capturas sobre la ronda 3; spec `docs/specs/0002-ronda-4-sazon.md`
