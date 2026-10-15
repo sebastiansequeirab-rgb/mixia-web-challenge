@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef } from 'react'
 import { useT } from '../i18n'
 import { gsap, scrollTo, ScrollTrigger } from '../lib/scroll'
 import { isTouch, prefersReducedMotion } from '../lib/device'
+import { EMAIL } from '../lib/contact'
 
 const HeroView = lazy(() => import('../three/HeroView'))
 
@@ -65,32 +66,50 @@ export function Hero({ ready }: { ready: boolean }) {
               <span className="grad-text">{second}</span>
             </span>
           </h1>
+          <ul className="hero-chips hero-fade" aria-label={t.stats.label}>
+            {t.hero.chips.map((c) => (
+              <li key={c}>{c}</li>
+            ))}
+          </ul>
           <p className="lead hero-fade">{t.hero.sub}</p>
-          <div className="hero-actions hero-fade">
-            <a
-              className="btn btn-primary"
-              href="#productos"
-              onClick={(e) => {
-                e.preventDefault()
-                scrollTo('#productos')
-              }}
-            >
-              {t.hero.cta1}
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
-                <path d="M8 3v10M3.5 8.5 8 13l4.5-4.5" />
-              </svg>
-            </a>
-            <a
-              className="btn btn-ghost"
-              href="#contacto"
-              onClick={(e) => {
-                e.preventDefault()
-                scrollTo('#contacto')
-              }}
-            >
-              {t.hero.cta2}
-            </a>
-          </div>
+          <form
+            className="hero-form hero-fade"
+            onSubmit={(e) => {
+              e.preventDefault()
+              const from = new FormData(e.currentTarget).get('email')
+              const subject = encodeURIComponent(t.hero.emailSubject)
+              const body = encodeURIComponent(`${t.hero.emailBody} ${from}`)
+              window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
+            }}
+          >
+            <label className="sr-only" htmlFor="hero-email">
+              {t.hero.emailLabel}
+            </label>
+            <input
+              id="hero-email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              placeholder={t.hero.emailPlaceholder}
+            />
+            <button type="submit" className="btn btn-primary">
+              {t.hero.emailCta}
+            </button>
+          </form>
+          <a
+            className="hero-more hero-fade"
+            href="#productos"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollTo('#productos')
+            }}
+          >
+            {t.hero.cta1}
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
+              <path d="M8 3v10M3.5 8.5 8 13l4.5-4.5" />
+            </svg>
+          </a>
         </div>
         <div className="hero-visual" ref={visual}>
           <Suspense fallback={null}>

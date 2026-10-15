@@ -25,6 +25,12 @@ export const es = {
     cta2: 'Hablemos',
     hint: 'Mueva el cursor sobre la red neuronal',
     hintTouch: 'Toque la red neuronal',
+    chips: ['14 años', '6 países', '3 productos en producción'],
+    emailLabel: 'Su correo',
+    emailPlaceholder: 'nombre@empresa.com',
+    emailCta: 'Hablemos',
+    emailSubject: 'Quiero hablar con Mixia',
+    emailBody: 'Hola, me gustaría conversar sobre un proyecto. Pueden escribirme a',
     scroll: 'Deslice',
   },
   stats: {

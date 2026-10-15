@@ -3,12 +3,9 @@ import { useT } from '../i18n'
 import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
 import { isTouch, prefersReducedMotion } from '../lib/device'
+import { EMAIL, WA_MX, WA_VE } from '../lib/contact'
 
 const ContactView = lazy(() => import('../three/ContactView'))
-
-const EMAIL = 'miguelgarcia@mixia.org'
-const WA_VE = '584242625097'
-const WA_MX = '523318224606'
 
 const Arrow = () => (
   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">

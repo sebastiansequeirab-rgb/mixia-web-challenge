@@ -530,10 +530,75 @@ main {
 .hero-copy .lead {
   margin-bottom: 36px;
 }
-.hero-actions {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.hero-chips {
   display: flex;
-  gap: 12px;
   flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+.hero-chips li {
+  padding: 7px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 550;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.hero-form {
+  display: flex;
+  gap: 10px;
+  max-width: 520px;
+}
+.hero-form input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 52px;
+  padding: 0 18px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font: inherit;
+  font-size: 15px;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.hero-form input::placeholder {
+  color: var(--muted);
+}
+.hero-form input:focus {
+  border-color: var(--peri);
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+.hero-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-2);
+  transition: color 0.3s;
+}
+.hero-more:hover {
+  color: var(--text);
+}
+.hero-more svg {
+  width: 14px;
+  height: 14px;
 }
 .hero-visual {
   position: relative;
