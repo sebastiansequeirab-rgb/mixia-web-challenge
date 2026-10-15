@@ -3,6 +3,7 @@ import { useT } from '../i18n'
 import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
 import type { ProductKind } from '../three/ProductView'
+import type { LockScreens } from '../three/lockScreens'
 
 const ProductView = lazy(() => import('../three/ProductView'))
 
@@ -15,6 +16,7 @@ type Product = {
   proof: string
   link?: string
   linkLabel?: string
+  screens?: LockScreens
 }
 
 function ProductBlock({
@@ -85,7 +87,7 @@ function ProductBlock({
       </div>
       <div className="product-visual">
         <Suspense fallback={null}>
-          <ProductView kind={kind} progress={progress} />
+          <ProductView kind={kind} progress={progress} screens={data.screens} />
         </Suspense>
       </div>
     </article>

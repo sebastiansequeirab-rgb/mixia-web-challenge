@@ -1,42 +1,63 @@
-import { useRef, type RefObject } from 'react'
+import { useEffect, useMemo, useRef, type RefObject } from 'react'
 import * as THREE from 'three'
-import { useFrame, useLoader } from '@react-three/fiber'
+import { useFrame } from '@react-three/fiber'
 import { Float, PerspectiveCamera, RoundedBox } from '@react-three/drei'
 import { Studio } from './Studio'
 import { prefersReducedMotion } from '../lib/device'
+import { buildLockScreens, SCREEN_ORDER, type LockScreens, type ScreenKind } from './lockScreens'
+
+const SCREEN_MS = 3400
+const AMBER = new THREE.Color('#f2a552')
+const PERI = new THREE.Color('#8b8cf5')
 
 /**
- * Teléfono con la pantalla de bloqueo real (marca LifePhone, white label) y un candado que
- * se abre cuando el visitante pasa la mitad de la sección.
+ * Teléfono con la app de Mixia Lock dibujada en canvas (tres pantallas que rotan en bucle:
+ * registrar, desbloqueado, bloqueado) y un candado que acompaña el estado.
  */
-export function LockPhone({ progress }: { progress: RefObject<number> }) {
+export function LockPhone({ progress, screens }: { progress: RefObject<number>; screens: LockScreens }) {
   const group = useRef<THREE.Group>(null!)
   const shackle = useRef<THREE.Group>(null!)
   const ring = useRef<THREE.Mesh>(null!)
-  const screen = useLoader(THREE.TextureLoader, '/textures/lock-screen.png')
-  screen.colorSpace = THREE.SRGBColorSpace
-  screen.anisotropy = 4
+  const mats = useRef<THREE.MeshBasicMaterial[]>([])
+  const textures = useMemo(() => buildLockScreens(screens), [screens])
+  useEffect(() => () => Object.values(textures).forEach((t) => t.dispose()), [textures])
+  const state = useRef({ index: 1, since: 0 })
 
-  useFrame((state, delta) => {
+  useFrame((st, delta) => {
     const g = group.current
     const p = progress.current ?? 0
-    const px = state.pointer.x
-    const py = state.pointer.y
+    const px = st.pointer.x
+    const py = st.pointer.y
     const inside = Math.abs(px) <= 1 && Math.abs(py) <= 1
     const ry = -0.55 + p * 1.1 + (inside ? px * 0.35 : 0)
     const rx = inside ? -py * 0.2 : 0
     g.rotation.y += (ry - g.rotation.y) * Math.min(1, delta * 3)
     g.rotation.x += (rx - g.rotation.x) * Math.min(1, delta * 3)
 
-    // Candado: cerrado hasta la mitad, se abre después.
-    const open = p > 0.5 ? 1 : 0
+    // Pantalla activa: rota en bucle; con reduced motion se queda en "desbloqueado".
+    const t = st.clock.elapsedTime * 1000
+    const sc = state.current
+    if (!prefersReducedMotion && p > 0 && p < 1 && t - sc.since > SCREEN_MS) {
+      sc.index = (sc.index + 1) % SCREEN_ORDER.length
+      sc.since = t
+    }
+    const kind: ScreenKind = SCREEN_ORDER[sc.index]
+    mats.current.forEach((m, i) => {
+      const target = i === sc.index ? 1 : 0
+      m.opacity += (target - m.opacity) * Math.min(1, delta * 6)
+    })
+
+    // Candado: abierto cuando el equipo está desbloqueado, cerrado y ámbar cuando está bloqueado.
+    const open = kind === 'unlocked' ? 1 : 0
     const s = shackle.current
     s.position.y += (0.22 * open - s.position.y) * Math.min(1, delta * 4)
     s.rotation.y += (0.9 * open - s.rotation.y) * Math.min(1, delta * 4)
     const r = ring.current
-    const pulse = prefersReducedMotion ? 1 : 1 + Math.sin(state.clock.elapsedTime * 2) * 0.06
+    const pulse = prefersReducedMotion ? 1 : 1 + Math.sin(st.clock.elapsedTime * 2) * 0.06
     r.scale.setScalar(pulse)
-    ;(r.material as THREE.MeshBasicMaterial).opacity = open ? 0.25 : 0.55
+    const rm = r.material as THREE.MeshBasicMaterial
+    rm.opacity += ((kind === 'locked' ? 0.7 : 0.3) - rm.opacity) * Math.min(1, delta * 4)
+    rm.color.lerp(kind === 'locked' ? AMBER : PERI, Math.min(1, delta * 4))
   })
 
   return (
@@ -55,10 +76,20 @@ export function LockPhone({ progress }: { progress: RefObject<number> }) {
                 clearcoatRoughness={0.15}
               />
             </RoundedBox>
-            <mesh position={[0, 0, 0.081]}>
-              <planeGeometry args={[1.3, 2.96]} />
-              <meshBasicMaterial map={screen} toneMapped={false} />
-            </mesh>
+            {SCREEN_ORDER.map((kind, i) => (
+              <mesh key={kind} position={[0, 0, 0.081 + i * 0.0005]}>
+                <planeGeometry args={[1.3, 2.96]} />
+                <meshBasicMaterial
+                  ref={(m) => {
+                    if (m) mats.current[i] = m
+                  }}
+                  map={textures[kind]}
+                  transparent
+                  opacity={i === 1 ? 1 : 0}
+                  toneMapped={false}
+                />
+              </mesh>
+            ))}
             {/* Marco de la pantalla */}
             <mesh position={[0, 0, 0.0805]}>
               <planeGeometry args={[1.44, 3.08]} />
