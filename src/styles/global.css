@@ -673,17 +673,11 @@ main {
   font-size: 14px;
   color: var(--muted);
 }
-.proof a {
-  margin-left: auto;
-  color: var(--text);
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-bottom: 1px solid var(--line-strong);
-  transition: border-color 0.3s;
-}
-.proof a:hover {
-  border-color: var(--text);
+.product-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
 }
 .product-logo {
   height: 28px;

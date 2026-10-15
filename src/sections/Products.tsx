@@ -1,5 +1,6 @@
 import { lazy, Suspense, useRef } from 'react'
 import { useT } from '../i18n'
+import { scrollTo } from '../lib/scroll'
 import { useReveal } from '../lib/useReveal'
 import { useSectionProgress } from '../lib/useSectionProgress'
 import type { ProductKind } from '../three/ProductView'
@@ -65,25 +66,27 @@ function ProductBlock({
             </li>
           ))}
         </ul>
-        <p className="proof reveal">
-          {data.proof}
+        <p className="proof reveal">{data.proof}</p>
+        <div className="product-actions reveal">
           {data.link && (
-            <a href={data.link} target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-ghost" href={data.link} target="_blank" rel="noopener noreferrer">
               {t.products.visit} {data.linkLabel}
-              <svg
-                viewBox="0 0 16 16"
-                width="12"
-                height="12"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true">
                 <path d="M4 12 12 4M6 4h6v6" />
               </svg>
             </a>
           )}
-        </p>
+          <a
+            className={`btn ${data.link ? 'btn-primary' : 'btn-ghost'}`}
+            href="#contacto"
+            onClick={(e) => {
+              e.preventDefault()
+              scrollTo('#contacto')
+            }}
+          >
+            {t.nav.cta}
+          </a>
+        </div>
       </div>
       <div className="product-visual">
         <Suspense fallback={null}>
