@@ -1,3 +1,20 @@
+# Estado al cierre (2026-10-15, noche)
+
+**Todo en `main` y en producción** (https://mixia-web-challenge.vercel.app, chunk comprobado).
+Sebastián dio luz verde final y cerró el chat con el video entregado. No hay trabajo a medias.
+
+Si se abre otra ronda, lo primero que conviene saber:
+- Pendientes que dependen de Sebastián: logos de Damasco, Grupo Higea, Banco R4 y SANUTEM (hoy
+  wordmark; no existen archivos públicos), y una cita real de cliente si quiere la sección de cita
+  de vuelta (se eliminó).
+- Reglas de diseño acumuladas (no volver atrás): tipografía Unbounded + Hanken Grotesk; nada de
+  degradado en texto, mayúsculas con tracking, chips, blur de vidrio ni barras de color; énfasis
+  con peso 300 o color sólido; "usted"; nunca "anti-robo".
+- Verificación estándar: `npm run build`, `scripts/comportamiento.mjs`, Lighthouse ≥ 95/100/100/100,
+  capturas con `scripts/capturas.mjs`, `escenario.mjs`, `laptop.mjs`, `pantalla.mjs`; iPhone con el
+  simulador de Xcode (`xcrun simctl`). Video con `scripts/cuadros.mjs` + `musica.py` + ffmpeg.
+- Memoria del proyecto (preferencias de Sebastián) en la memoria automática de Claude de esta carpeta.
+
 # Handoff: Mixia Web Challenge
 
 ## Cierre (2026-10-15, noche): verificación final y video
